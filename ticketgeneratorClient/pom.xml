@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.unibg</groupId>
-	<artifactId>ticketgeneratorVisualizer</artifactId>
+	<artifactId>ticketgeneratorClient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ticketgeneratorVisualizer</name>
-	<description>ticketgenerator Visualizer</description>
+	<name>ticketgeneratorClient</name>
+	<description>ticketgenerator Client</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -21,30 +21,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20220320</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.vaadin.external.google</groupId>
-			<artifactId>android-json</artifactId>
-			<version>0.0.20131108.vaadin1</version>
-			<scope>compile</scope>
-		</dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-<!--		</dependency>-->
     </dependencies>
 
 	<build>
