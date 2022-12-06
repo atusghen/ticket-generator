@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "3d3cce25-7781-4a7e-b507-2f9dfd5762e2",
+		"name": "PAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TipoA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/IncrementaOPE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"IncrementaOPE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "allStack",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/AllStackOPE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AllStackOPE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "serveNext",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reqId\": null,\r\n        \"i\": {\r\n        \"numero\": 2\r\n    },\r\n    \"o\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/ServeNextOPE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ServeNextOPE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jolly",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/IncrementaOPE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"IncrementaOPE"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
