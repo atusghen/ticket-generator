@@ -17,7 +17,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "Ticket";
+        return "ticket-generator";
     }
 
     @Override
@@ -34,4 +34,6 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     public Collection getMappingBasePackages() {
         return Collections.singleton("com.unibg");
     }
+
+
 }
