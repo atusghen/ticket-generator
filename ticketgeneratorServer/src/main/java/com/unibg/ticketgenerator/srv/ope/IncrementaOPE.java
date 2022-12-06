@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service(IncrementaOPE.NAME)
 public class IncrementaOPE extends BasicOPE<ObjectCb.I, ObjectCb.O> {
@@ -31,8 +32,11 @@ public class IncrementaOPE extends BasicOPE<ObjectCb.I, ObjectCb.O> {
 		}
 
 //		cerco il max n lista, poi cerco il max id. se per quel n liste è arrivato a 100, aumento nlista e riparto da 0
-		int listaAttuale=IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).toList());
-		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).toList();
+//		int listaAttuale=IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).toList());
+//		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).toList();
+
+		int listaAttuale=IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).collect(Collectors.toList()));
+		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).collect(Collectors.toList());
 
 //		operazione nel caso la lista sia oltre il 100, creo una nuova lista incrementando il counter
 		if(Collections.max(maxLista).getId()>99)
