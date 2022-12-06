@@ -20,7 +20,7 @@ public class IncrementaOPE extends BasicOPE<ObjectCb.I, ObjectCb.O> {
 	public static final String NAME = "IncrementaOPE";
 
 	public ObjectCb.O execute(ObjectCb.I i) {
-
+// prova per commit in sistema di autenticazione
 		List<TipoA> pila=tipoARepository.findAll();
 		ObjectCb.O o=new ObjectCb.O();
 //		operazione nel caso la lista sia vuota
