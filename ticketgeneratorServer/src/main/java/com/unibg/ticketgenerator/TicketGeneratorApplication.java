@@ -4,10 +4,16 @@ import com.unibg.ticketgenerator.srv.library.OPEesecutore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 //@EnableMongoRepositories(basePackages = "com.unibg.ticketgenerator")
 public class TicketGeneratorApplication {
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Bean(name = "opeExecutor")
 	public OPEesecutore opeExecutor() {

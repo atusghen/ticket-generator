@@ -1,7 +1,5 @@
 package com.unibg.ticketgenerator;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +20,12 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://atusghen:RDZJqNaMuqvZQH9G8tZE@cluster0.fam4tuc.mongodb.net/?retryWrites=true&w=majority");
-        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
-                .build();
+//        ConnectionString connectionString = new ConnectionString();
+//        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+//                .applyConnectionString(connectionString)
+//                .build();
 
-        return MongoClients.create(mongoClientSettings);
+        return MongoClients.create();
     }
 
     @Override
