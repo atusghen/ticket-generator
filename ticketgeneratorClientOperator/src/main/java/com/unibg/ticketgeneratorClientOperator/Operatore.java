@@ -29,6 +29,36 @@ public class Operatore {
         else System.out.println("nessuno in coda");
     }
 
+    public static void aggiungiUtente() throws IOException {
+        RestTemplateBuilder builder=new RestTemplateBuilder();
+        RestOperations restTemplate = builder.build();
+
+        //int id=Operatore.getIdOperatore();
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        System.out.println("inserisci il nome: ");
+        String nome = br.readLine();
+
+        System.out.println("inserisci il cognome: ");
+        String cognome = br.readLine();
+
+        System.out.println("inserisci il codice fiscale: ");
+        String cf = br.readLine();
+
+        ObjectCb.I in=new ObjectCb.I();
+        in.setNome(nome);
+        in.setCognome(cognome);
+        in.setCF(cf);
+        ObjectCb cb=new ObjectCb();
+        cb.setI(in);
+
+        ObjectCb r = restTemplate.postForObject("http://localhost:8080/AggiungiUtenteOPE",cb,ObjectCb.class);
+
+        if(r!=null)
+            System.out.println("andato");
+        else System.out.println("va niente");
+    }
+
     private static int getIdOperatore() {
         String input = null;
         do {
