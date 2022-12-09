@@ -1,16 +1,11 @@
 package com.unibg.ticketgenerator.dao;
 
-import com.unibg.ticketgenerator.entities.User;
+import com.unibg.ticketgenerator.security.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
-import java.util.Optional;
-
+import org.springframework.data.mongodb.repository.Query;
 
 public interface UserRepository extends MongoRepository<User, String> {
-    Optional<User> findByUsername(String username);
 
-    Boolean existsByUsername(String username);
-
-    Boolean existsByEmail(String email);
+    @Query("{username:'?0'}")
+    User findUserByUsername(String username);
 }
-
