@@ -1,5 +1,6 @@
 package com.unibg.ticketgenerator.entities;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Utente {
 
     @Id
-    private long id;
+    private ObjectId id;
 
     private String username;
 
@@ -37,16 +38,14 @@ public class Utente {
 
     public Utente() {}
     public Utente(long id, String nome, String cognome, String cf) {
-        this.id = id;
+        this.id = new ObjectId();
         this.nome = nome;
         this.cognome = cognome;
         this.cf = cf;
     }
-    public Utente(long id) {
-        this.id=id;
-    }
+
     public long getId() {
-        return id;
+        return id.getTimestamp();
     }
     public String getNome()
     {

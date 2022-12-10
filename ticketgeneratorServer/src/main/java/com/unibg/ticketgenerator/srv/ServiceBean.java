@@ -1,8 +1,6 @@
 package com.unibg.ticketgenerator.srv;
 
-import com.unibg.ticketgenerator.srv.dto.ArrayCb;
-import com.unibg.ticketgenerator.srv.dto.LoginCb;
-import com.unibg.ticketgenerator.srv.dto.ObjectCb;
+import com.unibg.ticketgenerator.srv.dto.*;
 import com.unibg.ticketgenerator.srv.library.BasicSRV;
 import com.unibg.ticketgenerator.srv.library.JwtUtils;
 import com.unibg.ticketgenerator.srv.ope.*;
@@ -20,29 +18,29 @@ public class ServiceBean extends BasicSRV {
 //	@Autowired private IncrementaOPE service; //= new OperationService(); questo non serve ci pensa spring a inizializzare
 
 	@RequestMapping(value="/"+ LoginOPE.NAME, method= RequestMethod.POST)
-	public ResponseEntity<?> loginOPE(LoginCb cb) {
+	public ResponseEntity<?> loginOPE(@RequestBody LoginCb cb) {
 		execOPE(LoginOPE.NAME,cb);
 		return ResponseEntity.status(401).body(cb);
 	}
 
 	//	"localhost:8080/IncrementaOPE"
 	@RequestMapping(value="/"+ IncrementaOPE.NAME, method= RequestMethod.POST)
-	public ResponseEntity<?> incrementaOPE(ObjectCb cb) {
+	public ResponseEntity<?> incrementaOPE(@RequestBody IncrementaCb cb) {
 		return execOPE(IncrementaOPE.NAME,cb);
 	}
 
 	@RequestMapping(value="/"+ AllStackOPE.NAME, method= RequestMethod.GET)
-	public ResponseEntity<?> allStackOPE(ArrayCb cb) {
+	public ResponseEntity<?> allStackOPE(@RequestBody AllStackCb cb) {
 		return execOPE(AllStackOPE.NAME,cb);
 	}
 
 	@RequestMapping(value="/"+ ServeNextOPE.NAME, method= RequestMethod.POST)
-	public ResponseEntity<?> serveNext(@RequestBody ObjectCb cb) {
+	public ResponseEntity<?> serveNext(@RequestBody ServeNextCb cb) {
 		return  execOPE(ServeNextOPE.NAME,cb);
 	}
 
 	@RequestMapping(value="/"+ AggiungiUtenteOPE.NAME, method= RequestMethod.POST)
-	public ResponseEntity<?> aggiungiUtenteOPE(@RequestBody ObjectCb cb) {
+	public ResponseEntity<?> aggiungiUtenteOPE(@RequestBody SignUpCb cb) {
 		return execOPE(AggiungiUtenteOPE.NAME,cb);
 	}
 
