@@ -3,6 +3,7 @@ package com.unibg.ticketgenerator.srv;
 import com.unibg.ticketgenerator.srv.dto.ArrayCb;
 import com.unibg.ticketgenerator.srv.dto.ObjectCb;
 import com.unibg.ticketgenerator.srv.library.BasicSRV;
+import com.unibg.ticketgenerator.srv.ope.AggiungiUtenteOPE;
 import com.unibg.ticketgenerator.srv.ope.AllStackOPE;
 import com.unibg.ticketgenerator.srv.ope.IncrementaOPE;
 import com.unibg.ticketgenerator.srv.ope.ServeNextOPE;
@@ -31,6 +32,11 @@ public class ServiceBean extends BasicSRV {
 	@RequestMapping(value="/"+ ServeNextOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> serveNext(@RequestBody ObjectCb cb) {
 		return  execOPE(ServeNextOPE.NAME,cb);
+	}
+
+	@RequestMapping(value="/"+ AggiungiUtenteOPE.NAME, method= RequestMethod.POST)
+	public ResponseEntity<?> aggiungiUtenteOPE(@RequestBody ObjectCb cb) {
+		return execOPE(AggiungiUtenteOPE.NAME,cb);
 	}
 
 
