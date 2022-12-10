@@ -3,16 +3,15 @@ package com.unibg.ticketgenerator.srv.dto;
 import com.unibg.ticketgenerator.entities.BaseI;
 import com.unibg.ticketgenerator.entities.BaseO;
 import com.unibg.ticketgenerator.entities.TipoA;
-import com.unibg.ticketgenerator.entities.Utente;
 import lombok.Data;
 
 import java.io.Serializable;
 
-public class ObjectCb extends BasicCB<ObjectCb.I,ObjectCb.O> implements Serializable {
+public class ServeNextCb extends BasicCB<ServeNextCb.I,ServeNextCb.O> implements Serializable {
 
-    public ObjectCb() {
-       i = new I();
-       o = new O();
+    public ServeNextCb() {
+        i = new I();
+        o = new O();
     }
 
     public String toString()
@@ -25,11 +24,8 @@ public class ObjectCb extends BasicCB<ObjectCb.I,ObjectCb.O> implements Serializ
         //        @NotNull
         private Long numero;
 
-        private String nome;
+        private String token;
 
-        private String cognome;
-
-        private String cf;
         public void setNumero(Long numero) {
             this.numero = numero;
         }
@@ -38,8 +34,6 @@ public class ObjectCb extends BasicCB<ObjectCb.I,ObjectCb.O> implements Serializ
     @Data
     public static class O extends BaseO implements Serializable {
         private TipoA biglietto;
-
-        private Utente utente;
 
     }
 

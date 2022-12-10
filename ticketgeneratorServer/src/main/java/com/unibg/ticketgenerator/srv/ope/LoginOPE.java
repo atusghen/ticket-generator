@@ -3,7 +3,6 @@ package com.unibg.ticketgenerator.srv.ope;
 import com.unibg.ticketgenerator.dao.UtenteRepository;
 import com.unibg.ticketgenerator.entities.Utente;
 import com.unibg.ticketgenerator.srv.dto.LoginCb;
-import com.unibg.ticketgenerator.srv.dto.ObjectCb;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
 import com.unibg.ticketgenerator.srv.library.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,10 @@ public class LoginOPE extends BasicOPE<LoginCb.I, LoginCb.O> {
         }
         if(i.getPassword().equals(utente.get().getPassword())) {
             out.setJwt(jwtUtils.generateJwtToken(utente.get()));
+        }else{
+            out= new LoginCb.O();
+            out.setJwt("Password dont match");
+            return out;
         }
 
         return out;
