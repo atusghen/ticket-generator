@@ -1,11 +1,8 @@
 package com.unibg.ticketgenerator.security;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.unibg.ticketgenerator.dao.RoleRepository;
 import com.unibg.ticketgenerator.dao.UserRepository;
 import com.unibg.ticketgenerator.security.dto.JwtResponse;
 import com.unibg.ticketgenerator.security.dto.LoginCb;
@@ -28,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//questo controller è dedicato all'esposizione delle API di accesso/registrazione
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class AuthController {
@@ -39,9 +37,6 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
 
     @Autowired
     PasswordEncoder encoder;

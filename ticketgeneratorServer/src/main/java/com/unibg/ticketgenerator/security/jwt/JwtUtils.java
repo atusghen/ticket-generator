@@ -14,6 +14,8 @@ import io.jsonwebtoken.*;
 
 @Component
 public class JwtUtils {
+
+    //utilità necessarie per la generazione di un token Jwt
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${com.unibg.ticketgeneratorServer.jwtSecret}")

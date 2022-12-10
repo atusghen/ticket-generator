@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+//questa classe implementa quella SpringBoot per supportare la presenza di più campi informativi all'interno del
+//database
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 

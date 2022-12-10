@@ -22,6 +22,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+
+    //filtro utilizzato per autorizzare l'utilizzo di una API quando c'è un token nell'header della richiesta
     @Autowired
     private JwtUtils jwtUtils;
 

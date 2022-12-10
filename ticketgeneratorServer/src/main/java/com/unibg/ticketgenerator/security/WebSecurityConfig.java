@@ -17,7 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+//in questa configurazione definiamo tutti i componenti necessari a gestire la security, in particolare abbiamo
+//1. la classe che va a recuperare i dettagli dell'username
+//2. la classe che gestisce le eccezioni di autenticazione
+//3. la classe che filtra le richeste di autorizzazione con il token
+//4. varie istruzioni per impostare l'encoder della password
+//5. la configurazione di sicurezza delle API, insieme a tutti i settaggi al server Http con gli oggetti qui definiti
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(

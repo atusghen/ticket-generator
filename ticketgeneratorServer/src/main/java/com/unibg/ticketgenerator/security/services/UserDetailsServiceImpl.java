@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+//questo service implementa la ricerca dei dettagli sul db, utilizzando lo stesso DAO utilizzato per confrontare i dati di accesso
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired

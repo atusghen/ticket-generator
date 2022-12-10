@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+//qui sto definendo il nome della collezione su Atlas
 @Document(collection = "user")
 public class User {
     @Id
@@ -18,6 +19,7 @@ public class User {
 
     private String password;
 
+    //questi ruoli mi servono per autorizzare le API in base agli utenti
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
