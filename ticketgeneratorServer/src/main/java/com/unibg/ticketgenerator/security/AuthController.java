@@ -11,12 +11,16 @@ import com.unibg.ticketgenerator.security.dto.JwtResponse;
 import com.unibg.ticketgenerator.security.dto.LoginCb;
 import com.unibg.ticketgenerator.security.jwt.JwtUtils;
 import com.unibg.ticketgenerator.security.services.UserDetailsImpl;
+import com.unibg.ticketgenerator.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
 public class AuthController {
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -46,21 +52,30 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser( @RequestBody LoginCb loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getI().getUsername(), loginRequest.getI().getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getI().getUsername(), loginRequest.getI().getPassword()));
+        } catch (BadCredentialsException e) {
+            loginRequest.getO().setOut(null);
+            ResponseEntity.status(401).body(loginRequest);
+        }  catch (UsernameNotFoundException e) {
+        loginRequest.getO().setOut(null);
+        ResponseEntity.status(401).body(loginRequest);
+    }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getI().getUsername());
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String jwt = jwtUtils.generateJwtToken(userDetails);
+
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
         loginRequest.getO().setOut(new JwtResponse(jwt,
-                userDetails.getId(),
+                null,
                 userDetails.getUsername(),
-                userDetails.getEmail(),
+                null,
                 roles));
 
         return ResponseEntity.ok(loginRequest);

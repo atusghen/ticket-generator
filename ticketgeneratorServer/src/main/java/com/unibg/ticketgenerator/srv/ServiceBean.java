@@ -15,16 +15,8 @@ import javax.annotation.security.RolesAllowed;
 public class ServiceBean extends BasicSRV {
 
 
-//	@RolesAllowed("ROLE_ADMIN")
-//	@GetMapping("/admin")
-//	public String admin() {
-//		return "Hello Admin!";
-//	}
-
-	//username -> greco, password -> password
 	@RequestMapping(value="/"+ IncrementaOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> incrementaOPE(ObjectCb cb) { return execOPE(IncrementaOPE.NAME,cb); }
-
 
 	@RequestMapping(value="/"+ AllStackOPE.NAME, method= RequestMethod.GET)
 	public ResponseEntity<?> allStackOPE(ArrayCb cb) {
