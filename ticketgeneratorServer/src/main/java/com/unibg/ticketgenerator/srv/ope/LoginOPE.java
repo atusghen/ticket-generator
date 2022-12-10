@@ -1,18 +1,21 @@
 package com.unibg.ticketgenerator.srv.ope;
 
-import com.auth0.jwt.JWT;
-import com.unibg.ticketgenerator.dao.TipoARepository;
 import com.unibg.ticketgenerator.dao.UtenteRepository;
 import com.unibg.ticketgenerator.entities.Utente;
 import com.unibg.ticketgenerator.srv.dto.LoginCb;
+import com.unibg.ticketgenerator.srv.dto.ObjectCb;
+import com.unibg.ticketgenerator.srv.library.BasicOPE;
+import com.unibg.ticketgenerator.srv.library.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service(LoginOPE.NAME)
-public class LoginOPE {
+public class LoginOPE extends BasicOPE<LoginCb.I, LoginCb.O> {
 
+    @Autowired
+    JwtUtils jwtUtils;
     @Autowired
     protected UtenteRepository utenteRepository;
 
@@ -27,16 +30,10 @@ public class LoginOPE {
             return out;
         }
         if(i.getPassword().equals(utente.get().getPassword())) {
-            generateJwt(out);
+            out.setJwt(jwtUtils.generateJwtToken(utente.get()));
         }
 
-
         return out;
-    }
-
-    private void generateJwt(LoginCb.O out){
-        JWT jwt = new JWT();
-        JWT.create().
     }
 }
 
