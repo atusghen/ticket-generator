@@ -1,6 +1,5 @@
 package com.unibg.ticketgenerator.srv.dto;
 
-import com.auth0.jwt.JWT;
 import com.unibg.ticketgenerator.entities.BaseI;
 import com.unibg.ticketgenerator.entities.BaseO;
 import lombok.Data;
@@ -17,13 +16,12 @@ public class LoginCb extends BasicCB<LoginCb.I, LoginCb.O> implements Serializab
     @Data
     public static class I extends BaseI implements Serializable{
         String username;
-
         String password;
     }
 
     @Data
     public static class O extends BaseO implements Serializable{
-        JWT jwt;
+        String jwt;
     }
 
 
