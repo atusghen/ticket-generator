@@ -1,25 +1,59 @@
 package com.unibg.ticketgenerator.security.model;
 
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
-import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-import org.springframework.security.core.userdetails.UserDetails;
 
-@Document
-public class User implements UserDetails {
-    private @MongoId ObjectId id;
+@Document(collection = "user")
+public class User {
+    @Id
+    private String id;
+
     private String username;
-    private String password;
-    private Set<UserRole> userRoles;
 
-    public ObjectId getId() {
+    private String email;
+
+    private String password;
+
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
+
+    public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getId() {
         return id;
     }
 
-    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -28,56 +62,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    @Override
-    public Set<UserRole> getAuthorities() {
-        return this.userRoles;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        User user = (User) o;
-        return Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

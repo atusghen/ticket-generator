@@ -22,17 +22,16 @@ public class ServiceBean extends BasicSRV {
 //	}
 
 	//username -> greco, password -> password
-	@RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
 	@RequestMapping(value="/"+ IncrementaOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> incrementaOPE(ObjectCb cb) { return execOPE(IncrementaOPE.NAME,cb); }
 
-	@RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
+
 	@RequestMapping(value="/"+ AllStackOPE.NAME, method= RequestMethod.GET)
 	public ResponseEntity<?> allStackOPE(ArrayCb cb) {
 		return execOPE(AllStackOPE.NAME,cb);
 	}
 
-	@RolesAllowed({ "ROLE_ADMIN", "ROLE_MODERATOR" })
+
 	@RequestMapping(value="/"+ ServeNextOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> serveNext(@RequestBody ObjectCb cb) {
 		return  execOPE(ServeNextOPE.NAME,cb);
