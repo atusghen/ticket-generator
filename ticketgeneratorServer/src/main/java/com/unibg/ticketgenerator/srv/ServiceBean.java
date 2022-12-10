@@ -1,12 +1,10 @@
 package com.unibg.ticketgenerator.srv;
 
 import com.unibg.ticketgenerator.srv.dto.ArrayCb;
+import com.unibg.ticketgenerator.srv.dto.LoginCb;
 import com.unibg.ticketgenerator.srv.dto.ObjectCb;
 import com.unibg.ticketgenerator.srv.library.BasicSRV;
-import com.unibg.ticketgenerator.srv.ope.AggiungiUtenteOPE;
-import com.unibg.ticketgenerator.srv.ope.AllStackOPE;
-import com.unibg.ticketgenerator.srv.ope.IncrementaOPE;
-import com.unibg.ticketgenerator.srv.ope.ServeNextOPE;
+import com.unibg.ticketgenerator.srv.ope.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +16,14 @@ public class ServiceBean extends BasicSRV {
 
 //	@Autowired private IncrementaOPE service; //= new OperationService(); questo non serve ci pensa spring a inizializzare
 
+	@RequestMapping(value="/"+ LoginOPE.NAME, method= RequestMethod.POST)
+	public ResponseEntity<?> loginOPE(LoginCb cb) {
+		execOPE(LoginOPE.NAME,cb);
+		return ResponseEntity.status(401).body(cb);
+	}
+
+	//	"localhost:8080/IncrementaOPE"
 	@RequestMapping(value="/"+ IncrementaOPE.NAME, method= RequestMethod.POST)
-//	"localhost:8080/IncrementaOPE"
 	public ResponseEntity<?> incrementaOPE(ObjectCb cb) {
 		return execOPE(IncrementaOPE.NAME,cb);
 	}
