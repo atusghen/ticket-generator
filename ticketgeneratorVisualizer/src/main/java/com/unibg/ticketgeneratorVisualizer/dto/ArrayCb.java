@@ -2,7 +2,7 @@ package com.unibg.ticketgeneratorVisualizer.dto;
 
 import com.unibg.ticketgeneratorVisualizer.entities.BaseI;
 import com.unibg.ticketgeneratorVisualizer.entities.BaseO;
-import com.unibg.ticketgeneratorVisualizer.entities.TipoA;
+import com.unibg.ticketgeneratorVisualizer.entities.Ticket;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +20,6 @@ public class ArrayCb extends BasicCB<ArrayCb.I,ArrayCb.O> implements Serializabl
     }
     @Data
     public static class O extends BaseO implements Serializable {
-        private List<TipoA> output;
+        private List<Ticket> output;
     }
 }

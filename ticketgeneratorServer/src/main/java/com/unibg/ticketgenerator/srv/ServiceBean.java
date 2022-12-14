@@ -20,7 +20,8 @@ public class ServiceBean extends BasicSRV {
 	@RequestMapping(value="/"+ LoginOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> loginOPE(@RequestBody LoginCb cb) {
 		execOPE(LoginOPE.NAME,cb);
-		return ResponseEntity.status(401).body(cb);
+		//implementare la risposta quando è sbagliato il login
+		return ResponseEntity.ok(cb);
 	}
 
 	//	"localhost:8080/IncrementaOPE"
