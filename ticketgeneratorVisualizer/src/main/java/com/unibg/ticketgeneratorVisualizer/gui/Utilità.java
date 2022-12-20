@@ -1,7 +1,7 @@
 package com.unibg.ticketgeneratorVisualizer.gui;
 
 import com.unibg.ticketgeneratorVisualizer.dto.ArrayCb;
-import com.unibg.ticketgeneratorVisualizer.entities.TipoA;
+import com.unibg.ticketgeneratorVisualizer.entities.Ticket;
 import org.json.JSONArray;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestOperations;
@@ -40,9 +40,8 @@ public class Utilità {
         ArrayCb r = restTemplate.getForObject(
                 "http://localhost:8080/AllStackOPE",
                 ArrayCb.class);
-        List<TipoA> temp=r.getO().getOutput();
+        List<Ticket> temp=r.getO().getOutput();
         System.out.println("Tabellone ->");
         temp.forEach(System.out::println);
-
     }
 }

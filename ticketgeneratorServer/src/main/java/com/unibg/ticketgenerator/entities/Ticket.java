@@ -4,22 +4,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class TipoA implements Comparable<TipoA> {
+public class Ticket implements Comparable<Ticket> {
 
 	@Id
 	private long id;
 	private long operatore;
 
 	int nLista;
-	private String type ="A";
+	private String priority;
 
-	public TipoA() {}
-	public TipoA(long id, int op, int nLista) {
+	public Ticket() {}
+	public Ticket(long id, int op, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
+		this.priority="X";
 	}
-	public TipoA(long id) {
+	public Ticket(long id, int op,String priority,int nLista) {
+		this.id=id;
+		this.operatore = op;
+		this.nLista=nLista;
+		this.priority=priority;
+	}
+	public Ticket(long id) {
 		this.id=id;
 	}
 	public long getOperatore() {
@@ -30,19 +37,19 @@ public class TipoA implements Comparable<TipoA> {
 	}
 	public String getPre()
 	{
-		return type;
+		return priority;
 	}
 
 	public int getNlista() {return nLista;}
 
-	public String toString() {return type+ ((getId() >10) ? "0" : "00")+ getId();}
+	public String toString() {return priority+ ((getId() >10) ? "0" : "00")+ getId();}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}
 	public void setNlista(int nlista) {this.nLista = nlista;}
 
 	@Override
-	public int compareTo(TipoA o) {
+	public int compareTo(Ticket o) {
 		if(o.getId()<this.getId() && o.getNlista()==this.getNlista())
 			return 1;
 		else if(o.getId()>this.getId() && o.getNlista()==this.getNlista())
@@ -50,5 +57,7 @@ public class TipoA implements Comparable<TipoA> {
 		else //if(o.getNlista()==this.getNlista())
 			return 0;
 	}
+
+
 
 }

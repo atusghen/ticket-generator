@@ -1,17 +1,17 @@
 package com.unibg.ticketgeneratorClientOperator;
 
-public class TipoA {
+public class Ticket {
 	//@JsonTypeId
 	private long id;
 	private long operatore;
 	private String pre ="A";
 
-	public TipoA() {}
-	public TipoA(long id, int op) {
+	public Ticket() {}
+	public Ticket(long id, int op) {
 		this.id=id;
 		this.operatore = op;
 	}
-	public TipoA(long id) {
+	public Ticket(long id) {
 		this.id=id;
 	}
 	public long getOperatore() {

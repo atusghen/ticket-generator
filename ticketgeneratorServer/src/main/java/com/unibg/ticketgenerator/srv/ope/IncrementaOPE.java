@@ -1,7 +1,7 @@
 package com.unibg.ticketgenerator.srv.ope;
 
-import com.unibg.ticketgenerator.dao.TipoARepository;
-import com.unibg.ticketgenerator.entities.TipoA;
+import com.unibg.ticketgenerator.dao.TicketsRepository;
+import com.unibg.ticketgenerator.entities.Ticket;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
 import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
@@ -17,39 +17,39 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 	@Autowired
 	Autenticatore autenticatore;
 	@Autowired
-	protected TipoARepository tipoARepository;
+	protected TicketsRepository ticketsRepository;
 
 	public static final String NAME = "IncrementaOPE";
 
 	public IncrementaCb.O execute(IncrementaCb.I i) {
 		if(autenticatore.autenticazione(i.getToken())) {
-			List<TipoA> pila = tipoARepository.findAll();
+			List<Ticket> pila = ticketsRepository.findAll();
 			IncrementaCb.O o = new IncrementaCb.O();
 //		operazione nel caso la lista sia vuota
 			if (pila.isEmpty()) {
-				o.setBiglietto(new TipoA(1, 0, 0));
-				tipoARepository.insert(new TipoA(1, 0, 0));
+				o.setBiglietto(new Ticket(1, 0, 0));
+				ticketsRepository.insert(new Ticket(1, 0,i.getPriority(), 0));
 				return o;
 			}
 
 //		cerco il max n lista, poi cerco il max id. se per quel n liste è arrivato a 100, aumento nlista e riparto da 0
 			int listaAttuale = IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).toList());
-			List<TipoA> maxLista = pila.stream().filter(n -> n.getNlista() == listaAttuale).toList();
+			List<Ticket> maxLista = pila.stream().filter(n -> n.getNlista() == listaAttuale).toList();
 
 //		int listaAttuale=IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).collect(Collectors.toList()));
 //		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).collect(Collectors.toList());
 
 //		operazione nel caso la lista sia oltre il 100, creo una nuova lista incrementando il counter
 			if (Collections.max(maxLista).getId() > 99) {
-				o.setBiglietto(new TipoA(1, 0, listaAttuale + 1));
-				tipoARepository.insert(new TipoA(1, 0, listaAttuale + 1));
+				o.setBiglietto(new Ticket(1, 0,i.getPriority(), listaAttuale + 1));
+				ticketsRepository.insert(new Ticket(1, 0,i.getPriority(),listaAttuale + 1));
 				return o;
 			}
 
 //		operaione nel caso la lista non sia oltre il 100, incremento la lista attuale
 			long index = Collections.max(maxLista).getId();
-			o.setBiglietto(new TipoA(index + 1, 0, listaAttuale));
-			tipoARepository.insert(o.getBiglietto());
+			o.setBiglietto(new Ticket(index + 1, 0,i.getPriority(),listaAttuale));
+			ticketsRepository.insert(o.getBiglietto());
 			return o;
 		}else
 			return null;
