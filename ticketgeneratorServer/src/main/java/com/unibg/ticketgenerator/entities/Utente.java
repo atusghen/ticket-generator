@@ -34,8 +34,6 @@ public class Utente {
     private String cognome;
     private String cf;
 
-    private String type ="U";
-
     public Utente() {}
     public Utente(long id, String nome, String cognome, String cf) {
         this.id = new ObjectId();
@@ -47,14 +45,6 @@ public class Utente {
     public long getId() {
         return id.getTimestamp();
     }
-    public String getNome()
-    {
-        return nome;
-    }
-    public String getCognome(){return cognome;}
 
-    public String getCf() {return cf;}
-
-    public String toString() {return type+ ((getId() >10) ? "0" : "00")+ getId();}
 
 }

@@ -51,8 +51,11 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 			o.setBiglietto(new Ticket(index + 1, 0,i.getPriority(),listaAttuale));
 			ticketsRepository.insert(o.getBiglietto());
 			return o;
-		}else
+		}else {
+			//autenticazione fallita
+			//throw new Exception("Autenticazione fallita");
 			return null;
+		}
 	}
 
 	public static int listaAttuale(List<Integer> nListe)

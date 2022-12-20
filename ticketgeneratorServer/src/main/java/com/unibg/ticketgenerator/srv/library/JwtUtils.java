@@ -1,14 +1,13 @@
 package com.unibg.ticketgenerator.srv.library;
 
-import java.util.Date;
-
 import com.unibg.ticketgenerator.entities.Utente;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cglib.core.Signature;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 
 @Component
@@ -32,7 +31,8 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
-    public String getUserNameFromJwtToken(String token) {
+    public String getUserNameFromJwtToken(String token) //throws ExpiredJwtException
+    {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
