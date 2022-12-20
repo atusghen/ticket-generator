@@ -3,7 +3,7 @@ package com.unibg.ticketgenerator.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket> {
 
 	@Id

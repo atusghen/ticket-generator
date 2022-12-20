@@ -19,8 +19,8 @@ public class AllStackOPE extends BasicOPE<AllStackCb.I, AllStackCb.O> {
     protected TicketsRepository ticketsRepository;
 
     public static final String NAME = "AllStackOPE";
-    public AllStackCb.O execute(AllStackCb.I i) {
-
+    public AllStackCb.O execute(AllStackCb.I i) //throws ExpiredJwtException
+    {
         if(autenticatore.autenticazione(i.getToken())) {
             List<Ticket> pila = ticketsRepository.findAll();
             AllStackCb.O o = new AllStackCb.O();
