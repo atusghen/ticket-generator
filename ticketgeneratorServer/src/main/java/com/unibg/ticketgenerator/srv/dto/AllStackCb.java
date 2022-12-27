@@ -1,7 +1,5 @@
 package com.unibg.ticketgenerator.srv.dto;
 
-import com.unibg.ticketgenerator.entities.BaseI;
-import com.unibg.ticketgenerator.entities.BaseO;
 import com.unibg.ticketgenerator.entities.Ticket;
 import lombok.Data;
 
@@ -15,12 +13,12 @@ public class AllStackCb extends BasicCB<AllStackCb.I,AllStackCb.O> implements Se
         o = new O();
     }
     @Data
-    public static class I extends BaseI implements Serializable {
+    public static class I implements Serializable {
 
         private String token;
     }
     @Data
-    public static class O extends BaseO implements Serializable {
+    public static class O implements Serializable {
         private List<Ticket> output;
     }
 }
