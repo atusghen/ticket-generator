@@ -2,9 +2,16 @@ package com.unibg.ticketgenerator.srv.ope;
 
 import com.unibg.ticketgenerator.dao.TicketsRepository;
 import com.unibg.ticketgenerator.entities.Ticket;
+import com.unibg.ticketgenerator.entities.TicketType;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
 import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
+import com.unibg.ticketgenerator.srv.library.BasicSRV;
+import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service(IncrementaOPE.NAME)
+@Slf4j
 public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 
 	@Autowired
@@ -21,14 +29,24 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 
 	public static final String NAME = "IncrementaOPE";
 
-	public IncrementaCb.O execute(IncrementaCb.I i) {
+	public IncrementaCb.O execute(IncrementaCb.I i) throws InvalidPriorityException {
 		if(autenticatore.autenticazione(i.getToken())) {
 			List<Ticket> pila = ticketsRepository.findAll();
 			IncrementaCb.O o = new IncrementaCb.O();
+			TicketType priority;
+			try {
+				priority = TicketType.valueOf(i.getPriority());
+			}catch(IllegalArgumentException e){
+				//eccezione personalizzata per non sovrapporsi con la stessa eccezione del JwtUtils
+				throw new InvalidPriorityException(e.getMessage());
+			}
 //		operazione nel caso la lista sia vuota
 			if (pila.isEmpty()) {
-				o.setBiglietto(new Ticket(1, 0, 0));
-				ticketsRepository.insert(new Ticket(1, 0,i.getPriority(), 0));
+				//todo: convertire il campo getPriority (che è un singolo char del tipo "A") in un label completo (vedi enum TicketType)
+				Ticket toInsert = new Ticket(1, 0, priority, 0);
+				log.info("generating ticket ->"+toInsert.toString());
+				o.setBiglietto(toInsert);
+				ticketsRepository.insert(toInsert);
 				return o;
 			}
 
@@ -36,19 +54,24 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 			int listaAttuale = IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).toList());
 			List<Ticket> maxLista = pila.stream().filter(n -> n.getNlista() == listaAttuale).toList();
 
+//		questo per Jvm version<11
 //		int listaAttuale=IncrementaOPE.listaAttuale(pila.stream().map(n -> n.getNlista()).collect(Collectors.toList()));
 //		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).collect(Collectors.toList());
 
 //		operazione nel caso la lista sia oltre il 100, creo una nuova lista incrementando il counter
 			if (Collections.max(maxLista).getId() > 99) {
-				o.setBiglietto(new Ticket(1, 0,i.getPriority(), listaAttuale + 1));
-				ticketsRepository.insert(new Ticket(1, 0,i.getPriority(),listaAttuale + 1));
+				Ticket toInsert = new Ticket(1, 0,priority, listaAttuale + 1);
+				log.info("generating ticket ->"+toInsert.toString());
+				o.setBiglietto(toInsert);
+				ticketsRepository.insert(toInsert);
 				return o;
 			}
 
 //		operaione nel caso la lista non sia oltre il 100, incremento la lista attuale
 			long index = Collections.max(maxLista).getId();
-			o.setBiglietto(new Ticket(index + 1, 0,i.getPriority(),listaAttuale));
+			Ticket toInsert = new Ticket(index + 1, 0,priority,listaAttuale);
+			log.info("generating ticket ->"+toInsert.toString());
+			o.setBiglietto(toInsert);
 			ticketsRepository.insert(o.getBiglietto());
 			return o;
 		}else {

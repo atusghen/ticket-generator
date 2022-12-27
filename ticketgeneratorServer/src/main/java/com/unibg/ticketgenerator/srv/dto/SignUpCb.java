@@ -1,7 +1,5 @@
 package com.unibg.ticketgenerator.srv.dto;
 
-import com.unibg.ticketgenerator.entities.BaseI;
-import com.unibg.ticketgenerator.entities.BaseO;
 import com.unibg.ticketgenerator.entities.Utente;
 import lombok.Data;
 
@@ -15,7 +13,7 @@ public class SignUpCb extends BasicCB<SignUpCb.I,SignUpCb.O> implements Serializ
     }
 
     @Data
-    public static class I extends BaseI implements Serializable{
+    public static class I implements Serializable{
         private String nome;
 
         private String cognome;
@@ -28,7 +26,7 @@ public class SignUpCb extends BasicCB<SignUpCb.I,SignUpCb.O> implements Serializ
     }
 
     @Data
-    public static class O extends BaseO implements Serializable{
+    public static class O implements Serializable{
         String result;
         private Utente utente;
     }
