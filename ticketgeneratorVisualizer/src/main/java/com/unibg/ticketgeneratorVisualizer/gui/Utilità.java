@@ -33,14 +33,14 @@ public class Utilità {
         }
     }
 
-    public static void visualizzazione2(Interfaccia ui)
+    public static void visualizzazione2(Interfaccia ui, String token)
     {
         int i = 0;
         RestTemplateBuilder builder=new RestTemplateBuilder();
         RestOperations restTemplate = builder.build();
 
         AllStackCb.I in=new AllStackCb.I();
-        in.setType("dashboard");
+        in.setToken(token);
         AllStackCb cb=new AllStackCb();
         cb.setI(in);
 
