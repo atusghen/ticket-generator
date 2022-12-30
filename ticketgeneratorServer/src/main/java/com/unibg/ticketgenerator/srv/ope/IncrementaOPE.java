@@ -6,12 +6,8 @@ import com.unibg.ticketgenerator.entities.TicketType;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
 import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
-import com.unibg.ticketgenerator.srv.library.BasicSRV;
 import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -27,7 +27,6 @@ public class SignUpCb extends BasicCB<SignUpCb.I,SignUpCb.O> implements Serializ
 
     @Data
     public static class O implements Serializable{
-        String result;
         private Utente utente;
     }
 
