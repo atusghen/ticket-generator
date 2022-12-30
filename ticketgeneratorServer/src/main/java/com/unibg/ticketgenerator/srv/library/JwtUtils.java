@@ -1,10 +1,10 @@
 package com.unibg.ticketgenerator.srv.library;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.unibg.ticketgenerator.entities.Utente;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +35,14 @@ public class JwtUtils {
 
     public String getUserNameFromJwtToken(String token) //throws ExpiredJwtException
     {
+        //  parseClaimsJws(token).getBody().getSubject();
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getUserNameFromJwtTokenNoExpired(String token) //throws ExpiredJwtException
+    {
+        DecodedJWT jwt = JWT.decode(token);
+        return jwt.getSubject();
     }
 
     public Date getExpirationFromJwtToken(String token) {

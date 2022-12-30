@@ -19,7 +19,9 @@ public class Autenticatore {
     {
         //se il token c'è, corrisponde ad un nome utente nel db e la sua exp date è > del momento attuale allora autorizza
         if(token!=null){
-            String username = jwtUtils.getUserNameFromJwtToken(token);
+            String username = jwtUtils.getUserNameFromJwtTokenNoExpired(token);
+            if(username.equals("visualizzatore"))
+                return true;
             Optional<Utente> utente = utenteRepository.findByUsername(username);
             if(!utente.isEmpty()){
                 Date attuale = new Date();
