@@ -1,9 +1,10 @@
 package com.unibg.ticketgenerator.entities;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket> {
 
 	@Id
@@ -11,16 +12,18 @@ public class Ticket implements Comparable<Ticket> {
 	private long operatore;
 
 	int nLista;
-	private String priority;
+
+	private TicketType priority;
+	//private String priority;
 
 	public Ticket() {}
 	public Ticket(long id, int op, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
-		this.priority="X";
+		this.priority=TicketType.X;
 	}
-	public Ticket(long id, int op,String priority,int nLista) {
+	public Ticket(long id, int op, @NotNull TicketType priority, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
@@ -35,14 +38,14 @@ public class Ticket implements Comparable<Ticket> {
 	public long getId() {
 		return id;
 	}
-	public String getPre()
+	public TicketType getPriority()
 	{
 		return priority;
 	}
 
 	public int getNlista() {return nLista;}
 
-	public String toString() {return priority+ ((getId() >10) ? "0" : "00")+ getId();}
+	public String toString() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId();}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}

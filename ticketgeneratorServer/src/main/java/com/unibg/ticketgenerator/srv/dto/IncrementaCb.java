@@ -1,7 +1,5 @@
 package com.unibg.ticketgenerator.srv.dto;
 
-import com.unibg.ticketgenerator.entities.BaseI;
-import com.unibg.ticketgenerator.entities.BaseO;
 import com.unibg.ticketgenerator.entities.Ticket;
 import lombok.Data;
 
@@ -20,7 +18,7 @@ public class IncrementaCb extends BasicCB<IncrementaCb.I,IncrementaCb.O> impleme
     }
 
     @Data
-    public static class I extends BaseI implements Serializable {
+    public static class I implements Serializable {
         //        @NotNull
 
 
@@ -34,7 +32,7 @@ public class IncrementaCb extends BasicCB<IncrementaCb.I,IncrementaCb.O> impleme
 
     }
     @Data
-    public static class O extends BaseO implements Serializable {
+    public static class O implements Serializable {
         private Ticket biglietto;
 
     }

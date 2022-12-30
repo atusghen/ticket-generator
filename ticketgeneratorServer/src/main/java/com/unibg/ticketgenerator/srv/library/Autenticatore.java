@@ -15,7 +15,7 @@ public class Autenticatore {
     @Autowired
     UtenteRepository utenteRepository;
 
-    public boolean autenticazione(String token)
+    public boolean autenticazione(String token)// throws ExpiredJwtException
     {
         //se il token c'è, corrisponde ad un nome utente nel db e la sua exp date è > del momento attuale allora autorizza
         if(token!=null){

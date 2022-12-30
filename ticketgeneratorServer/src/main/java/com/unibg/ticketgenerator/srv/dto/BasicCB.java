@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public abstract class BasicCB<I,O> implements Serializable {
     private String reqId;
+
+    public String getOpeResult() {return opeResult;}
+
+    public void setOpeResult(String opeResult) {this.opeResult = opeResult;}
+    private String opeResult;
     public String getReqId() {
         return reqId;
     }
