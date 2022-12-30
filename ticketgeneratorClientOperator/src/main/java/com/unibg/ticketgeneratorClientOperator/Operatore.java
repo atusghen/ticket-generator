@@ -1,6 +1,5 @@
 package com.unibg.ticketgeneratorClientOperator;
 
-import com.unibg.ticketgeneratorClientOperator.dto.CheckOperatorCb;
 import com.unibg.ticketgeneratorClientOperator.dto.ObjectCb;
 import com.unibg.ticketgeneratorClientOperator.dto.SignUpCb;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -102,26 +101,6 @@ public class Operatore {
         } while (Integer.parseInt(input) != 0);
     }
 
-    public static CheckOperatorCb login() {
-        String username = "admin";
-        String password = "admin";
-        RestTemplateBuilder builder=new RestTemplateBuilder();
-        RestOperations restTemplate = builder.build();
-
-        CheckOperatorCb.I in=new CheckOperatorCb.I();
-        in.setUsername(username);
-        in.setPassword(password);
-        CheckOperatorCb cb=new CheckOperatorCb();
-        cb.setI(in);
-
-        CheckOperatorCb r = restTemplate.postForObject("http://localhost:8080/CheckOperatorOPE",cb,CheckOperatorCb.class);
-
-        if(r != null)
-            System.out.println("Operatore riconosciuto");
-        else System.out.println("Operatore sconosciuto");
-
-        return r;
-    }
 
 //    protected ResponseEntity<ObjectCb> execOPE() {
 //        RestTemplateBuilder builder=new RestTemplateBuilder();
