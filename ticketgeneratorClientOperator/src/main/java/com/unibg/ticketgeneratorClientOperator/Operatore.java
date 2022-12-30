@@ -1,6 +1,8 @@
 package com.unibg.ticketgeneratorClientOperator;
 
+import com.unibg.ticketgeneratorClientOperator.dto.CheckOperatorCb;
 import com.unibg.ticketgeneratorClientOperator.dto.ObjectCb;
+import com.unibg.ticketgeneratorClientOperator.dto.SignUpCb;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestOperations;
 
@@ -42,21 +44,29 @@ public class Operatore {
         System.out.println("inserisci il cognome: ");
         String cognome = br.readLine();
 
+        System.out.println("inserisci lo username: ");
+        String username = br.readLine();
+
+        System.out.println("inserisci la password: ");
+        String password = br.readLine();
+
         System.out.println("inserisci il codice fiscale: ");
         String cf = br.readLine();
 
-        ObjectCb.I in=new ObjectCb.I();
+        SignUpCb.I in=new SignUpCb.I();
         in.setNome(nome);
         in.setCognome(cognome);
-        in.setCF(cf);
-        ObjectCb cb=new ObjectCb();
+        in.setUsername(username);
+        in.setPassword(password);
+        in.setCf(cf);
+        SignUpCb cb=new SignUpCb();
         cb.setI(in);
 
-        ObjectCb r = restTemplate.postForObject("http://localhost:8080/AggiungiUtenteOPE",cb,ObjectCb.class);
+        SignUpCb r = restTemplate.postForObject("http://localhost:8080/AggiungiUtenteOPE",cb,SignUpCb.class);
 
-        if(r!=null)
-            System.out.println("andato");
-        else System.out.println("va niente");
+        if(r != null)
+            System.out.println("Registrazione avvenuta");
+        else System.out.println("Registrazione fallita");
     }
 
     private static int getIdOperatore() {
@@ -90,6 +100,27 @@ public class Operatore {
             }
             if(Integer.parseInt(input)==0) return;
         } while (Integer.parseInt(input) != 0);
+    }
+
+    public static CheckOperatorCb login() {
+        String username = "admin";
+        String password = "admin";
+        RestTemplateBuilder builder=new RestTemplateBuilder();
+        RestOperations restTemplate = builder.build();
+
+        CheckOperatorCb.I in=new CheckOperatorCb.I();
+        in.setUsername(username);
+        in.setPassword(password);
+        CheckOperatorCb cb=new CheckOperatorCb();
+        cb.setI(in);
+
+        CheckOperatorCb r = restTemplate.postForObject("http://localhost:8080/CheckOperatorOPE",cb,CheckOperatorCb.class);
+
+        if(r != null)
+            System.out.println("Operatore riconosciuto");
+        else System.out.println("Operatore sconosciuto");
+
+        return r;
     }
 
 //    protected ResponseEntity<ObjectCb> execOPE() {

@@ -30,7 +30,7 @@ public class ServiceBean extends BasicSRV {
 		return execOPE(IncrementaOPE.NAME,cb);
 	}
 
-	@RequestMapping(value="/"+ AllStackOPE.NAME, method= RequestMethod.GET)
+	@RequestMapping(value="/"+ AllStackOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> allStackOPE(@RequestBody AllStackCb cb) {
 		return execOPE(AllStackOPE.NAME,cb);
 	}
@@ -44,6 +44,7 @@ public class ServiceBean extends BasicSRV {
 	public ResponseEntity<?> aggiungiUtenteOPE(@RequestBody SignUpCb cb) {
 		return execOPE(AggiungiUtenteOPE.NAME,cb);
 	}
+
 
 
 }

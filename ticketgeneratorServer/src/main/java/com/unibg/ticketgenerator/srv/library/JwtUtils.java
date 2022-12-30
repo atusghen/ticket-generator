@@ -7,7 +7,6 @@ import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cglib.core.Signature;
 import org.springframework.stereotype.Component;
 
 
@@ -23,6 +22,7 @@ public class JwtUtils {
 
     @Value("${com.unibg.ticketgeneratorServer.jwtExpirationMs}")
     private int jwtExpirationMs;
+
 
     public String generateJwtToken(Utente utente) {
         return Jwts.builder()

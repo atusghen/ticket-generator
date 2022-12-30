@@ -1,5 +1,6 @@
 package com.unibg.ticketgenerator.srv.ope;
 
+import com.mongodb.lang.Nullable;
 import com.unibg.ticketgenerator.dao.UtenteRepository;
 import com.unibg.ticketgenerator.entities.Utente;
 import com.unibg.ticketgenerator.srv.dto.SignUpCb;
@@ -19,13 +20,17 @@ public class AggiungiUtenteOPE extends BasicOPE<SignUpCb.I, SignUpCb.O> {
     public static final String NAME = "AggiungiUtenteOPE";
 
     public SignUpCb.O execute(SignUpCb.I i) {
-
-        List<Utente> pila=utenteRepository.findAll();
         SignUpCb.O o=new SignUpCb.O();
-//		operazione nel caso la lista sia vuota
+        List<Utente> pila = utenteRepository.findAll();
 
-        o.setUtente(new Utente(pila.size(), i.getNome(),i.getCognome(), i.getCf()));
-        utenteRepository.insert(new Utente(pila.size(), i.getNome(),i.getCognome(), i.getCf()));
+        if(utenteRepository.findByCf(i.getCf()).isEmpty()) {
+            o.setResult("OK");
+            System.out.println(o.getResult());
+            utenteRepository.insert(new Utente(pila.size(), i.getNome(),i.getCognome(), i.getUsername(), i.getPassword(), i.getCf()));
+        }
+
+
+
         return o;
 
     }

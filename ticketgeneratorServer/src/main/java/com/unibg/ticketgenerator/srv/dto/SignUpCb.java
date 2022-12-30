@@ -20,12 +20,16 @@ public class SignUpCb extends BasicCB<SignUpCb.I,SignUpCb.O> implements Serializ
 
         private String cognome;
 
+        private String username;
+
+        private String password;
+
         private String cf;
     }
 
     @Data
     public static class O extends BaseO implements Serializable{
-        private Utente utente;
+        private String result;
     }
 
 }

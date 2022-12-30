@@ -24,27 +24,11 @@ public class ObjectCb extends BasicCB<ObjectCb.I,ObjectCb.O> implements Serializ
         //        @NotNull
         private Long numero;
 
-        private String nome;
-        private String cognome;
-
-        public String cf;
-
 
         public void setNumero(Long numero) {
             this.numero = numero;
         }
 
-        public void setNome(String nome){
-            this.nome = nome;
-        }
-
-        public void setCognome(String cognome){
-            this.cognome = cognome;
-        }
-
-        public void setCF(String cf){
-            this.cf = cf;
-        }
     }
     @Data
     public static class O extends BaseO implements Serializable {

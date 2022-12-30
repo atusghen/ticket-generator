@@ -20,8 +20,12 @@ public class AllStackOPE extends BasicOPE<AllStackCb.I, AllStackCb.O> {
 
     public static final String NAME = "AllStackOPE";
     public AllStackCb.O execute(AllStackCb.I i) {
-
-        if(autenticatore.autenticazione(i.getToken())) {
+        if(i.getType().equals("dashboard")){
+            List<Ticket> pila = ticketsRepository.findAll();
+            AllStackCb.O o = new AllStackCb.O();
+            o.setOutput(pila);
+            return o;
+        }else if(autenticatore.autenticazione(i.getToken())) {
             List<Ticket> pila = ticketsRepository.findAll();
             AllStackCb.O o = new AllStackCb.O();
             o.setOutput(pila);

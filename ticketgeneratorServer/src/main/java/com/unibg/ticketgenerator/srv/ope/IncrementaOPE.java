@@ -22,7 +22,7 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 	public static final String NAME = "IncrementaOPE";
 
 	public IncrementaCb.O execute(IncrementaCb.I i) {
-		if(autenticatore.autenticazione(i.getToken())) {
+		//if(autenticatore.autenticazione(i.getToken())) {
 			List<Ticket> pila = ticketsRepository.findAll();
 			IncrementaCb.O o = new IncrementaCb.O();
 //		operazione nel caso la lista sia vuota
@@ -51,8 +51,8 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 			o.setBiglietto(new Ticket(index + 1, 0,i.getPriority(),listaAttuale));
 			ticketsRepository.insert(o.getBiglietto());
 			return o;
-		}else
-			return null;
+		/*}else
+			return null;*/
 	}
 
 	public static int listaAttuale(List<Integer> nListe)
