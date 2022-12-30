@@ -15,6 +15,7 @@ public class AllStackCb extends BasicCB<AllStackCb.I,AllStackCb.O> implements Se
     @Data
     public static class I implements Serializable {
 
+        private String type;
         private String token;
     }
     @Data

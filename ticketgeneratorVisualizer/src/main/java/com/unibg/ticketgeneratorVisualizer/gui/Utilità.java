@@ -1,6 +1,6 @@
 package com.unibg.ticketgeneratorVisualizer.gui;
 
-import com.unibg.ticketgeneratorVisualizer.dto.ArrayCb;
+import com.unibg.ticketgeneratorVisualizer.dto.AllStackCb;
 import com.unibg.ticketgeneratorVisualizer.entities.Ticket;
 import org.json.JSONArray;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -33,15 +33,26 @@ public class Utilità {
         }
     }
 
-    public static void visualizzazione2()
+    public static void visualizzazione2(Interfaccia ui)
     {
+        int i = 0;
         RestTemplateBuilder builder=new RestTemplateBuilder();
         RestOperations restTemplate = builder.build();
-        ArrayCb r = restTemplate.getForObject(
-                "http://localhost:8080/AllStackOPE",
-                ArrayCb.class);
+
+        AllStackCb.I in=new AllStackCb.I();
+        in.setType("dashboard");
+        AllStackCb cb=new AllStackCb();
+        cb.setI(in);
+
+        AllStackCb r = restTemplate.postForObject(
+                "http://localhost:8080/AllStackOPE", cb, AllStackCb.class);
         List<Ticket> temp=r.getO().getOutput();
         System.out.println("Tabellone ->");
         temp.forEach(System.out::println);
+
+        for(Ticket t : temp){
+            ui.setData(i++, t.toString());
+        }
+
     }
 }

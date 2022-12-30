@@ -24,6 +24,7 @@ public class JwtUtils {
     @Value("${com.unibg.ticketgeneratorServer.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+
     public String generateJwtToken(Utente utente) {
         return Jwts.builder()
                 .setSubject((utente.getUsername()))
