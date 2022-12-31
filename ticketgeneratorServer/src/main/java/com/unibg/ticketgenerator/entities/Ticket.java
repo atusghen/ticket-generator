@@ -15,20 +15,24 @@ public class Ticket implements Comparable<Ticket> {
 
 	private TicketType priority;
 	//private String priority;
-
+	private int priorityvalue;
 	public Ticket() {}
 	public Ticket(long id, int op, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
 		this.priority=TicketType.X;
+		this.priorityvalue=setPriorityValue(priority);
 	}
-	public Ticket(long id, int op, @NotNull TicketType priority, int nLista) {
+	public Ticket(long id, int op, @NotNull TicketType pri, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
-		this.priority=priority;
+		this.priority=pri;
+		this.priorityvalue=setPriorityValue(priority);
 	}
+
+
 	public Ticket(long id) {
 		this.id=id;
 	}
@@ -42,7 +46,27 @@ public class Ticket implements Comparable<Ticket> {
 	{
 		return priority;
 	}
-
+	public int setPriorityValue(TicketType type){
+		if(type==TicketType.A)
+			return 4;
+		else if(type==TicketType.X)
+			return 3;
+		else if(type==TicketType.B)
+			return 2;
+		else if(type==TicketType.C1 || type==TicketType.C2)
+			return 1;
+		else
+			return 0;
+	}
+	public boolean comparePriority(Ticket ticket){
+		 if(this.getPriorityvalue()>ticket.getPriorityvalue()){
+			 return true;
+		 }
+		 return false;
+	}
+	public int getPriorityvalue(){
+		return priorityvalue;
+	}
 	public int getNlista() {return nLista;}
 
 	public String toString() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId();}

@@ -43,19 +43,32 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
 //		assegno il primo biglietto all'operatore disponibile
             if (!pila.isEmpty()) {
                 Iterator<Ticket> it = pila.iterator();
+                Ticket insert = null;
                 while (it.hasNext()) {
                     Ticket temp = it.next();
-                    if (temp.getOperatore() == 0) {
-                        temp.assegnaOp((int) op);
+                    if (temp.getOperatore() == 0 & insert==null) {
+//                        temp.assegnaOp((int) op);
 //		restituisco il biglietto trovato libero
-                        out.setBiglietto(temp);
-                        ticketsRepository.saveAll(pila);
-                        return out;
+                        insert=temp;
+   //                     out.setBiglietto(temp);
+ //                       ticketsRepository.saveAll(pila);
+   //                     return out;
+                    }else if(temp.getOperatore() == 0 ){
+                        if(temp.comparePriority(insert)) {
+                            insert = temp;
+                        }
                     }
                 }
-                ticketsRepository.saveAll(pila);
+                insert.assegnaOp((int) op);
+                if (insert==null) {
+                    out.setBiglietto(insert);
+                    ticketsRepository.saveAll(pila);
+                    return out;
+                }
+
 //		non avendo trovato nessun biglietto libero, restituisco null
 //		pila.forEach(System.out::println);
+            	ticketsRepository.saveAll(pila);
                 return null;
             }
 
