@@ -1,9 +1,7 @@
 package com.unibg.ticketgenerator.srv.library;
 
 import com.unibg.ticketgenerator.srv.dto.BasicCB;
-import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
-import com.unibg.ticketgenerator.srv.ope.exceptions.UsernameNotFoundException;
-import com.unibg.ticketgenerator.srv.ope.exceptions.WrongPasswordException;
+import com.unibg.ticketgenerator.srv.ope.exceptions.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -61,6 +59,14 @@ public abstract class BasicSRV {
         } catch (UsernameNotFoundException e) {
             log.error("Username not found: " + e.getMessage());
             cb.setOpeResult("Username not found: " + e.getMessage());
+            return ResponseEntity.status(401).body(cb);
+        } catch (UsernameAlreadyExistException e) {
+            log.error("Username not available: " + e.getMessage());
+            cb.setOpeResult("Username not available: " + e.getMessage());
+            return ResponseEntity.status(401).body(cb);
+        } catch (CfAlreadyRegistered e) {
+            log.error("Cf already registered: " + e.getMessage());
+            cb.setOpeResult("Cf already registered: " + e.getMessage());
             return ResponseEntity.status(401).body(cb);
         }
     }
