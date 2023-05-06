@@ -11,24 +11,33 @@ public class Ticket implements Comparable<Ticket> {
 	private long id;
 	private long operatore;
 
+	private long creationTime;
+	private long temp;
 	int nLista;
 
-	private TicketType priority;
-	//private String priority;
-
+	private TicketType type;
+	private int priorityvalue;
 	public Ticket() {}
 	public Ticket(long id, int op, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
-		this.priority=TicketType.X;
+		this.type=TicketType.C2;
+		this.priorityvalue=setPriorityValue(type);
+		this.creationTime=System.currentTimeMillis();
+		this.temp=System.currentTimeMillis();
 	}
-	public Ticket(long id, int op, @NotNull TicketType priority, int nLista) {
+	public Ticket(long id, int op, @NotNull TicketType pri, int nLista) {
 		this.id=id;
 		this.operatore = op;
 		this.nLista=nLista;
-		this.priority=priority;
+		this.type=pri;
+		this.priorityvalue=setPriorityValue(type);
+		this.creationTime=System.currentTimeMillis();
+		this.temp=System.currentTimeMillis();
 	}
+
+
 	public Ticket(long id) {
 		this.id=id;
 	}
@@ -40,12 +49,35 @@ public class Ticket implements Comparable<Ticket> {
 	}
 	public TicketType getPriority()
 	{
-		return priority;
+		return type;
 	}
-
+	public int setPriorityValue(TicketType type){
+		if(type==TicketType.A)
+			return 4;
+		else if(type==TicketType.X)
+			return 3;
+		else if(type==TicketType.B)
+			return 2;
+		else if(type==TicketType.C1 || type==TicketType.C2)
+			return 1;
+		else
+			return 0;
+	}
+	public boolean comparePriority(Ticket ticket){
+		 if(this.getPriorityvalue()>ticket.getPriorityvalue() || (this.getPriorityvalue()==ticket.getPriorityvalue() && this.getCreationTime()<ticket.getCreationTime())){
+			 return true;
+		 }
+		 return false;
+	}
+	public int getPriorityvalue(){
+		return priorityvalue;
+	}
+	public long getCreationTime(){
+		return creationTime;
+	}
 	public int getNlista() {return nLista;}
 
-	public String toString() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId();}
+	public String toString() {return type.toString()+ ((getId() >9) ? "0" : "00")+ getId();}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}
@@ -59,6 +91,17 @@ public class Ticket implements Comparable<Ticket> {
 			return -1;
 		else //if(o.getNlista()==this.getNlista())
 			return 0;
+	}
+
+
+
+	public void isExpired() {
+		if (System.currentTimeMillis() - temp > 10000){
+			if(this.priorityvalue<10) {
+				this.priorityvalue = priorityvalue + 1;
+				temp = System.currentTimeMillis();
+			}
+		}
 	}
 
 

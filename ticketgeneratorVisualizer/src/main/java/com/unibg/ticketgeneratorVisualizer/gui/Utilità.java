@@ -47,6 +47,7 @@ public class Utilità {
         AllStackCb r = restTemplate.postForObject(
                 "http://localhost:8080/AllStackOPE", cb, AllStackCb.class);
         List<Ticket> temp=r.getO().getOutput();
+
         System.out.println("Tabellone ->");
         temp.forEach(System.out::println);
 

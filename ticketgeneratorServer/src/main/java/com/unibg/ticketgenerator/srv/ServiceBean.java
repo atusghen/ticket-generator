@@ -3,11 +3,9 @@ package com.unibg.ticketgenerator.srv;
 import com.unibg.ticketgenerator.srv.dto.*;
 import com.unibg.ticketgenerator.srv.library.BasicSRV;
 import com.unibg.ticketgenerator.srv.ope.*;
+import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ServiceBean extends BasicSRV {
@@ -38,6 +36,12 @@ public class ServiceBean extends BasicSRV {
 	@RequestMapping(value="/"+ AggiungiUtenteOPE.NAME, method= RequestMethod.POST)
 	public ResponseEntity<?> aggiungiUtenteOPE(@RequestBody SignUpCb cb) {
 		return execOPE(AggiungiUtenteOPE.NAME,cb);
+	}
+
+	@GetMapping("/UpdateTickets")
+	@SneakyThrows
+	public String UpdateTickets(){
+		return null;
 	}
 
 

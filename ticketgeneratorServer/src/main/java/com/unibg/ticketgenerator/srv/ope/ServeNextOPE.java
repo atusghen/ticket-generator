@@ -35,7 +35,12 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
                 }
             }
 
-//		se trovo un biglietto con un operatore già assegnato, lo rimuovo
+//
+//Questo codice controlla se nella pila "pila" esiste almeno un oggetto che ha un operatore uguale a op
+// usando la funzione anyMatch() della classe Stream di Java. Se c'è, allora viene rimossa dalla pila
+// l'intera lista di oggetti che soddisfano questa condizione e vengono cancellati dal repository tramite
+// la funzione deleteAll(). In altre parole, questo codice rimuove dalla pila e dal repository tutti i biglietti
+// associati all'operatore specificato op.
             if (pila.stream().anyMatch(n -> n.getOperatore() == op)) {
                 pila.removeIf(n -> n.getOperatore() == op);
                 ticketsRepository.deleteAll(toDelete);
@@ -43,19 +48,32 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
 //		assegno il primo biglietto all'operatore disponibile
             if (!pila.isEmpty()) {
                 Iterator<Ticket> it = pila.iterator();
+                Ticket insert = null;
                 while (it.hasNext()) {
                     Ticket temp = it.next();
-                    if (temp.getOperatore() == 0) {
-                        temp.assegnaOp((int) op);
+                    if (temp.getOperatore() == 0 & insert==null) {
+//                        temp.assegnaOp((int) op);
 //		restituisco il biglietto trovato libero
-                        out.setBiglietto(temp);
-                        ticketsRepository.saveAll(pila);
-                        return out;
+                        insert=temp;
+   //                     out.setBiglietto(temp);
+ //                       ticketsRepository.saveAll(pila);
+   //                     return out;
+                    }else if(temp.getOperatore() == 0 ){
+                        if(temp.comparePriority(insert)) {
+                            insert = temp;
+                        }
                     }
                 }
-                ticketsRepository.saveAll(pila);
+                insert.assegnaOp((int) op);
+                if (insert==null) {
+                    out.setBiglietto(insert);
+                    ticketsRepository.saveAll(pila);
+                    return out;
+                }
+
 //		non avendo trovato nessun biglietto libero, restituisco null
 //		pila.forEach(System.out::println);
+            	ticketsRepository.saveAll(pila);
                 return null;
             }
 
