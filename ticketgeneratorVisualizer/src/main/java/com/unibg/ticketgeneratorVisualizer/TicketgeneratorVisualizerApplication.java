@@ -17,7 +17,6 @@ public class TicketgeneratorVisualizerApplication {
 
 			Utilità.visualizzazione2(ui, token);
 
-
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {

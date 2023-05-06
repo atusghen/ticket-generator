@@ -35,7 +35,12 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
                 }
             }
 
-//		se trovo un biglietto con un operatore già assegnato, lo rimuovo
+//
+//Questo codice controlla se nella pila "pila" esiste almeno un oggetto che ha un operatore uguale a op
+// usando la funzione anyMatch() della classe Stream di Java. Se c'è, allora viene rimossa dalla pila
+// l'intera lista di oggetti che soddisfano questa condizione e vengono cancellati dal repository tramite
+// la funzione deleteAll(). In altre parole, questo codice rimuove dalla pila e dal repository tutti i biglietti
+// associati all'operatore specificato op.
             if (pila.stream().anyMatch(n -> n.getOperatore() == op)) {
                 pila.removeIf(n -> n.getOperatore() == op);
                 ticketsRepository.deleteAll(toDelete);

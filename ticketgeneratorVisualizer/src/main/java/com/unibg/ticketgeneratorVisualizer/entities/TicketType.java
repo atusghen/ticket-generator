@@ -3,6 +3,9 @@ package com.unibg.ticketgeneratorVisualizer.entities;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum TicketType {
     A("TypeA"),
     X("TypeX"),
@@ -29,7 +32,7 @@ public enum TicketType {
 //    }
 
     private final String label;
-//    private final String val;
+    //    private final String val;
     TicketType(String label) {
         this.label=label;
 //        this.val=val;

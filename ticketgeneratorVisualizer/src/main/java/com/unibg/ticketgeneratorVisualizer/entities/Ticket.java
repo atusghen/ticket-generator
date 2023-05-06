@@ -48,7 +48,7 @@ public class Ticket implements Comparable<Ticket> {
 
 	public int getNlista() {return nLista;}
 
-	public String toString() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId()+"PV "+priorityvalue+" Operatore"+ ((getOperatore()==0) ? "" : Long.toString(getOperatore()));}
+	public String toString() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId()+" Operatore"+ ((getOperatore()==0) ? "" : Long.toString(getOperatore()));}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}
