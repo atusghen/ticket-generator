@@ -12,6 +12,7 @@ public class TicketgeneratorVisualizerApplication {
 		System.setProperty("java.awt.headless", "false");
 		SpringApplication.run(TicketgeneratorVisualizerApplication.class, args);
 		Interfaccia ui = new Interfaccia();
+		//InterfaceGUI i = new InterfaceGUI();
 		while(true)
 		{
 

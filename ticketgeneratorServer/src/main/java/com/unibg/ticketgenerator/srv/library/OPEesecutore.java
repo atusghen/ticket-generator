@@ -1,9 +1,7 @@
 package com.unibg.ticketgenerator.srv.library;
 
 import com.unibg.ticketgenerator.srv.dto.BasicCB;
-import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
-import com.unibg.ticketgenerator.srv.ope.exceptions.UsernameNotFoundException;
-import com.unibg.ticketgenerator.srv.ope.exceptions.WrongPasswordException;
+import com.unibg.ticketgenerator.srv.ope.exceptions.*;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +11,7 @@ public class OPEesecutore {
     @Autowired
     protected ApplicationContext appContext;
 
-    public BasicCB execOPE(String opeId, BasicCB cb) throws UsernameNotFoundException, WrongPasswordException {
+    public BasicCB execOPE(String opeId, BasicCB cb) throws UsernameNotFoundException, WrongPasswordException, UsernameAlreadyExistException, CfAlreadyRegistered {
 
         BasicOPE ope=null;
 
