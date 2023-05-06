@@ -64,8 +64,9 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
                         }
                     }
                 }
-                insert.assegnaOp((int) op);
-                if (insert==null) {
+
+                if (insert!=null) {
+                    insert.assegnaOp((int) op);
                     out.setBiglietto(insert);
                     ticketsRepository.saveAll(pila);
                     return out;
