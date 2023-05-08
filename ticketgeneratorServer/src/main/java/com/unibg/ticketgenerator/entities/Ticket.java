@@ -5,7 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ticket")
-public class Ticket implements Comparable<Ticket> {
+public class Ticket implements Comparable<Ticket>
+{
 
 	@Id
 	private long id;
@@ -92,8 +93,6 @@ public class Ticket implements Comparable<Ticket> {
 		else //if(o.getNlista()==this.getNlista())
 			return 0;
 	}
-
-
 
 	public void isExpired() {
 		if (System.currentTimeMillis() - temp > 10000){
