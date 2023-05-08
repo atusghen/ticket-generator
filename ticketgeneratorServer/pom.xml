@@ -14,7 +14,7 @@
 	<name>ticketgeneratorServer</name>
 	<description>ticketgenerator backend</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>16</java.version>
 	</properties>
 	<dependencies>
 <!--		Jwt-->
@@ -74,6 +74,11 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20220320</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
