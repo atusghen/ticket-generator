@@ -3,7 +3,6 @@ package com.unibg.ticketgenerator.srv.ope;
 import com.unibg.ticketgenerator.dao.TicketsRepository;
 import com.unibg.ticketgenerator.entities.Ticket;
 import com.unibg.ticketgenerator.srv.dto.ServeNextCb;
-import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +14,14 @@ import java.util.List;
 @Service(ServeNextOPE.NAME)
 public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
 
-    @Autowired
-    Autenticatore autenticatore;
+//    @Autowired
+//    Autenticatore autenticatore;
     @Autowired
     protected TicketsRepository ticketsRepository;
     public static final String NAME = "ServeNextOPE";
 
     public ServeNextCb.O execute(ServeNextCb.I i) {
-        if (autenticatore.autenticazione(i.getToken())) {
+//        if (autenticatore.autenticazione(i.getToken())) {
             ServeNextCb.O out = new ServeNextCb.O();
             long op = i.getNumero();
             List<Ticket> pila = ticketsRepository.findAll();
@@ -81,10 +80,10 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
             return null;
 
 
-    }else{
-            //autenticazione fallita
-        return null;
-    }
+//    }else{
+//            //autenticazione fallita
+//        return null;
+//    }
         }
 
 }

@@ -22,7 +22,7 @@ public class ServeNextCb extends BasicCB<ServeNextCb.I,ServeNextCb.O> implements
         //        @NotNull
         private Long numero;
 
-        private String token;
+        //private String token;
 
         public void setNumero(Long numero) {
             this.numero = numero;

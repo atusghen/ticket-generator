@@ -24,7 +24,7 @@ public class IncrementaCb extends BasicCB<IncrementaCb.I,IncrementaCb.O> impleme
 
         private String priority;
 
-        private String token;
+        //private String token;
         public String getPriority() {
             return  priority;
         }

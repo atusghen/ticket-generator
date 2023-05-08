@@ -4,7 +4,6 @@ import com.unibg.ticketgenerator.dao.TicketsRepository;
 import com.unibg.ticketgenerator.entities.Ticket;
 import com.unibg.ticketgenerator.entities.TicketType;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
-import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
 import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,15 +17,15 @@ import java.util.List;
 @Slf4j
 public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 
-	@Autowired
-	Autenticatore autenticatore;
+//	@Autowired
+//	Autenticatore autenticatore;
 	@Autowired
 	protected TicketsRepository ticketsRepository;
 
 	public static final String NAME = "IncrementaOPE";
 
 	public IncrementaCb.O execute(IncrementaCb.I i) throws InvalidPriorityException {
-		if(autenticatore.autenticazione(i.getToken())) {
+//		if(autenticatore.autenticazione(i.getToken())) {
 			List<Ticket> pila = ticketsRepository.findAll();
 			IncrementaCb.O o = new IncrementaCb.O();
 			TicketType priority;
@@ -70,11 +69,11 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 			o.setBiglietto(toInsert);
 			ticketsRepository.insert(o.getBiglietto());
 			return o;
-		}else {
-			//autenticazione fallita
-			//throw new Exception("Autenticazione fallita");
-			return null;
-		}
+//		}else {
+//			//autenticazione fallita
+//			//throw new Exception("Autenticazione fallita");
+//			return null;
+//		}
 	}
 
 	public static int listaAttuale(List<Integer> nListe)
