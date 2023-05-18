@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.unibg</groupId>
-	<artifactId>ticketgenerator</artifactId>
+	<artifactId>ticketgeneratorServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ticketgenerator</name>
+	<name>ticketgeneratorServer</name>
 	<description>ticketgenerator backend</description>
 	<properties>
 		<java.version>11</java.version>

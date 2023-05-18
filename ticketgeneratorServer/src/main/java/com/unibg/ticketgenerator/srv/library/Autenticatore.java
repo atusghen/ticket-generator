@@ -37,6 +37,7 @@ public class Autenticatore {
             }else{
                 return false;
                 //username not found, token invalid, is the secret code leaked?
+                //or the username is being deleted?????
             }
         }else{
             return false;
