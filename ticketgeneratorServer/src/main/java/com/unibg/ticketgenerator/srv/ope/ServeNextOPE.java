@@ -3,13 +3,13 @@ package com.unibg.ticketgenerator.srv.ope;
 import com.unibg.ticketgenerator.dao.TicketsRepository;
 import com.unibg.ticketgenerator.entities.Ticket;
 import com.unibg.ticketgenerator.srv.dto.ServeNextCb;
+import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service(ServeNextOPE.NAME)
 public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
@@ -59,15 +59,10 @@ public class ServeNextOPE extends BasicOPE<ServeNextCb.I, ServeNextCb.O> {
 //		non avendo trovato nessun biglietto libero, restituisco null
             	ticketsRepository.saveAll(pila);
                 return null;
-            }
-
-            return null;
-
-
-    }else{
+        }else{
             //autenticazione fallita
-        return null;
-    }
+            return null;
         }
+    }
 
 }
