@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 public class Utente {
 
 //    @Id
-    private ObjectId id;
+    private long id;
 
     private String nome;
 
@@ -38,7 +38,7 @@ public class Utente {
 
     public Utente() {}
     public Utente(long id, String nome, String cognome, String username, String password, String cf) {
-        this.id = new ObjectId();
+        this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
@@ -47,7 +47,7 @@ public class Utente {
     }
 
     public long getId() {
-        return id.getTimestamp();
+        return id;
     }
 
 }
