@@ -17,6 +17,7 @@ import javax.inject.Singleton;
 import io.reactivex.rxjava3.core.Single;
 import it.unibg.ticketgenerator.data.AllStackCb;
 import it.unibg.ticketgenerator.data.BasicCB;
+import it.unibg.ticketgenerator.data.IncrementaCb;
 import it.unibg.ticketgenerator.data.JsonCB;
 import it.unibg.ticketgenerator.data.LoginCb;
 import it.unibg.ticketgenerator.data.SignUpCb;
@@ -66,6 +67,10 @@ public class RetroFitRepository {
 
     public Single<SignUpCb.O> register(@NotNull SignUpCb cb) {
         return execOPE(SignUpCb.NAME, cb, SignUpCb.O.class);
+    }
+
+    public Single<IncrementaCb.O> createTicket(@NotNull IncrementaCb cb) {
+        return execOPE(IncrementaCb.NAME, cb, IncrementaCb.O.class);
     }
 //
 //    public Single<SaveNotaCB.O> saveNota(@NotNull SaveNotaCB cb){

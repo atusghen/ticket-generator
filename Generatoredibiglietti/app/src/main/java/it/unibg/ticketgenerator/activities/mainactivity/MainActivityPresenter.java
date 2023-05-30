@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import it.unibg.ticketgenerator.data.AllStackCb;
+import it.unibg.ticketgenerator.data.IncrementaCb;
 import it.unibg.ticketgenerator.data.LoginCb;
 import it.unibg.ticketgenerator.repositories.SharedPreferenceRepository;
 import it.unibg.ticketgenerator.source.RetroFitRepository;
@@ -66,6 +67,25 @@ public class MainActivityPresenter implements MainActivityContract.Presenter{
     public void logout() {
         sharedPreferenceRepository.saveString("token", "");
         mView.startAuthenticationActivity();
+    }
+
+    @Override
+    public void createTicket(String token) {
+        IncrementaCb cb = new IncrementaCb();
+        cb.getI().setToken(token);
+        cb.getI().setPriority("X");
+        retroFitRepository.createTicket(cb)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onSuccess -> {
+                            mView.showTicket(onSuccess.getBiglietto());
+                        },
+                        onError -> {
+                            Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();
+                            onError.printStackTrace();
+                        }
+                );
     }
 
 

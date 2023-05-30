@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import javax.inject.Inject;
@@ -40,6 +42,8 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
 
     private ConstraintLayout loginLayout;
     private ConstraintLayout registerLayout;
+
+    private ConstraintLayout loadingCircle;
 
     boolean login = true;
 
@@ -71,6 +75,8 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
         loginLayout = findViewById(R.id.constraintLayoutLogin);
         registerLayout = findViewById(R.id.constraintLayoutRegister);
 
+        loadingCircle = findViewById(R.id.loadingCircle);
+
         registerLayout.setTranslationX(displayMetrics.widthPixels);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +101,8 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
                         return;
 
                     mPresenter.login(username.getEditText().getText().toString(), password.getEditText().getText().toString());
+                    startLoading();
+
                 }
             }
         });
@@ -121,10 +129,26 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
                     }
 
                     mPresenter.register(newUsername.getEditText().getText().toString(), newPassword.getEditText().getText().toString(), newName.getEditText().getText().toString(), newSurname.getEditText().getText().toString(), newCf.getEditText().getText().toString());
+                    startLoading();
                 }
 
             }
         });
+
+    }
+
+    public void startLoading() {
+        loadingCircle.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        loadingCircle.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        Snackbar.make(findViewById(R.id.constraintLayoutLogin), message, Snackbar.LENGTH_LONG).show();
 
     }
 

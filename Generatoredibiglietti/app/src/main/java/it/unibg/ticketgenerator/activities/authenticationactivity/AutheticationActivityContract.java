@@ -8,6 +8,10 @@ public interface AutheticationActivityContract {
         void startMainActivity();
 
         void setLoginData(String username, String password);
+
+        void stopLoading();
+
+        void showSnackBar(String message);
     }
 
     interface Presenter extends BasePresenter {

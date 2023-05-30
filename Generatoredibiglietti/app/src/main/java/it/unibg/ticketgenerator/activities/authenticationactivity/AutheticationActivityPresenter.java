@@ -3,6 +3,8 @@ package it.unibg.ticketgenerator.activities.authenticationactivity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -49,13 +51,14 @@ public class AutheticationActivityPresenter implements AutheticationActivityCont
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onSuccess -> {
-                            Toast.makeText(context, "DIo cane", Toast.LENGTH_SHORT).show();
                             sharedPreferenceRepository.saveString("token", onSuccess.getJwt());
+                            sharedPreferenceRepository.saveString("username", username);
+                            mView.stopLoading();
                             mView.startMainActivity();
                         },
                         onError -> {
-                            Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();
-                            onError.printStackTrace();
+                            mView.showSnackBar(onError.getMessage());
+                            mView.stopLoading();
                         }
                 );
     }
@@ -73,10 +76,12 @@ public class AutheticationActivityPresenter implements AutheticationActivityCont
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         onSuccess -> {
+                            mView.stopLoading();
                             login(username, password);
                         },
                         onError -> {
                             Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();
+                            mView.stopLoading();
                             onError.printStackTrace();
                         }
                 );
