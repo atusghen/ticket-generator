@@ -17,7 +17,10 @@ import javax.inject.Singleton;
 import io.reactivex.rxjava3.core.Single;
 import it.unibg.ticketgenerator.data.AllStackCb;
 import it.unibg.ticketgenerator.data.BasicCB;
+import it.unibg.ticketgenerator.data.IncrementaCb;
 import it.unibg.ticketgenerator.data.JsonCB;
+import it.unibg.ticketgenerator.data.LoginCb;
+import it.unibg.ticketgenerator.data.SignUpCb;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +38,7 @@ public class RetroFitRepository {
     @Inject
     public RetroFitRepository() {
         //preso da libreria SpringHttpClient
-        setupClient2("http://192.168.1.55:8080");
+        setupClient2("http://192.168.0.109:8080");
     }
 
     public void setupClient2(String apiUrl) {
@@ -56,6 +59,18 @@ public class RetroFitRepository {
 
     public Single<AllStackCb.O> getAllStack(@NotNull AllStackCb cb) {
         return execOPE(AllStackCb.NAME, cb, AllStackCb.O.class);
+    }
+
+    public Single<LoginCb.O> login(@NotNull LoginCb cb) {
+        return execOPE(LoginCb.NAME, cb, LoginCb.O.class);
+    }
+
+    public Single<SignUpCb.O> register(@NotNull SignUpCb cb) {
+        return execOPE(SignUpCb.NAME, cb, SignUpCb.O.class);
+    }
+
+    public Single<IncrementaCb.O> createTicket(@NotNull IncrementaCb cb) {
+        return execOPE(IncrementaCb.NAME, cb, IncrementaCb.O.class);
     }
 //
 //    public Single<SaveNotaCB.O> saveNota(@NotNull SaveNotaCB cb){
