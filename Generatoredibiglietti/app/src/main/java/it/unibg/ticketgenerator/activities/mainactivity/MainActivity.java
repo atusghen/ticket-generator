@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void showTicket(Ticket ticket) {
-        ticketIdText.setText(String.format(Locale.ITALY, "%s%03d", ticket.getPriority(), ticket.getId()));
+        ticketIdText.setText(String.format(Locale.ITALY, "%s%03d", ticket.getPriority(),ticket.getTicketNumber()));
 
         ticketInfo1Text.setText(sharedPreferenceRepository.getString("username"));
 

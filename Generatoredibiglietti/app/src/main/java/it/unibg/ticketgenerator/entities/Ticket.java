@@ -1,33 +1,34 @@
 package it.unibg.ticketgenerator.entities;
 
+import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 
 //@Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket>
 {
 
-//	@Id
-	private long id;
+	private ObjectId _id;
+	private long ticketNumber;
 	private long operatore;
 
 	private long creationTime;
 	private long temp;
 	int nLista;
 
-	private String priority;
+	private TicketType priority;
 	private int priorityvalue;
 	public Ticket() {}
-	public Ticket(long id, int op, int nLista) {
-		this.id=id;
+	public Ticket(long ticketNumber, int op, int nLista) {
+		this.ticketNumber = ticketNumber;
 		this.operatore = op;
 		this.nLista=nLista;
-		this.priority =TicketType.C2.getLabel();
+		this.priority =TicketType.C2;
 		this.priorityvalue=setPriorityValue(priority);
 		this.creationTime=System.currentTimeMillis();
 		this.temp=System.currentTimeMillis();
 	}
-	public Ticket(long id, int op, @NotNull String pri, int nLista) {
-		this.id=id;
+	public Ticket(long ticketNumber, int op, @NotNull TicketType pri, int nLista) {
+		this.ticketNumber = ticketNumber;
 		this.operatore = op;
 		this.nLista=nLista;
 		this.priority =pri;
@@ -37,36 +38,36 @@ public class Ticket implements Comparable<Ticket>
 	}
 
 
-	public Ticket(long id) {
-		this.id=id;
+	public Ticket(long ticketNumber) {
+		this.ticketNumber = ticketNumber;
 	}
 	public long getOperatore() {
 		return this.operatore;
 	}
-	public long getId() {
-		return id;
+	public long getTicketNumber() {
+		return ticketNumber;
 	}
-	public String getPriority()
+	public TicketType getPriority()
 	{
 		return priority;
 	}
-	public int setPriorityValue(String type){
-		if(type==TicketType.A.getLabel())
+	public int setPriorityValue(TicketType type){
+		if(type==TicketType.A)
 			return 4;
-		else if(type==TicketType.X.getLabel())
+		else if(type==TicketType.X)
 			return 3;
-		else if(type==TicketType.B.getLabel())
+		else if(type==TicketType.B)
 			return 2;
-		else if(type==TicketType.C1.getLabel() || type==TicketType.C2.getLabel())
+		else if(type==TicketType.C1 || type==TicketType.C2)
 			return 1;
 		else
 			return 0;
 	}
 	public boolean comparePriority(Ticket ticket){
-		 if(this.getPriorityvalue()>ticket.getPriorityvalue() || (this.getPriorityvalue()==ticket.getPriorityvalue() && this.getCreationTime()<ticket.getCreationTime())){
-			 return true;
-		 }
-		 return false;
+		if(this.getPriorityvalue()>ticket.getPriorityvalue() || (this.getPriorityvalue()==ticket.getPriorityvalue() && this.getCreationTime()<ticket.getCreationTime())){
+			return true;
+		}
+		return false;
 	}
 	public int getPriorityvalue(){
 		return priorityvalue;
@@ -76,7 +77,7 @@ public class Ticket implements Comparable<Ticket>
 	}
 	public int getNlista() {return nLista;}
 
-	public String toString2() {return priority.toString()+ ((getId() >9) ? "0" : "00")+ getId();}
+	public String toString() {return priority +((getTicketNumber() >9) ? "0" : "00")+ getTicketNumber();}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}
@@ -84,9 +85,9 @@ public class Ticket implements Comparable<Ticket>
 
 	@Override
 	public int compareTo(Ticket o) {
-		if(o.getId()<this.getId() && o.getNlista()==this.getNlista())
+		if(o.getTicketNumber()<this.getTicketNumber() && o.getNlista()==this.getNlista())
 			return 1;
-		else if(o.getId()>this.getId() && o.getNlista()==this.getNlista())
+		else if(o.getTicketNumber()>this.getTicketNumber() && o.getNlista()==this.getNlista())
 			return -1;
 		else //if(o.getNlista()==this.getNlista())
 			return 0;
