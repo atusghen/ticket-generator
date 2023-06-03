@@ -1,12 +1,5 @@
 package it.unibg.ticketgenerator.entities;
-
-import org.bson.types.ObjectId;
-
-//@Document(collection = "user")
 public class Utente {
-
-//    @Id
-    private long id;
 
     private String nome;
 
@@ -37,17 +30,12 @@ public class Utente {
 
 
     public Utente() {}
-    public Utente(long id, String nome, String cognome, String username, String password, String cf) {
-        this.id = id;
+    public Utente(String nome, String cognome, String username, String password, String cf) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.password = password;
         this.cf = cf;
-    }
-
-    public long getId() {
-        return id;
     }
 
 }
