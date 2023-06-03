@@ -1,12 +1,16 @@
 package com.unibg.ticketgenerator.entities;
 
+import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket>
 {
 
+	@Id
+	private ObjectId _id;
 	private long ticketNumber;
 	private long operatore;
 
