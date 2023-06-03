@@ -25,7 +25,7 @@ public class AggiungiUtenteOPE extends BasicOPE<SignUpCb.I, SignUpCb.O> {
 
         if(utenteRepository.findByCf(i.getCf()).isEmpty()) {
             if(utenteRepository.findByUsername(i.getUsername()).isEmpty()){
-                Utente utente = new Utente(pila.size(), i.getNome(), i.getCognome(), i.getUsername(), i.getPassword(), i.getCf());
+                Utente utente = new Utente(i.getNome(), i.getCognome(), i.getUsername(), i.getPassword(), i.getCf());
                 utenteRepository.insert(utente);
                 o.setUtente(utente);
             }
