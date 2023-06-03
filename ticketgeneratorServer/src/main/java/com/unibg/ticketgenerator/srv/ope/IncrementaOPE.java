@@ -55,7 +55,7 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
 //		List<TipoA> maxLista=pila.stream().filter(n -> n.getNlista()==listaAttuale).collect(Collectors.toList());
 
 //		operazione nel caso la lista sia oltre il 100, creo una nuova lista incrementando il counter
-            if (Collections.max(maxLista).getId() > 99) {
+            if (Collections.max(maxLista).getTicketNumber() > 99) {
                 Ticket toInsert = new Ticket(1, 0, priority, listaAttuale + 1);
                 log.info("generating ticket ->" + toInsert.toString());
                 o.setBiglietto(toInsert);
@@ -64,7 +64,7 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
             }
 
 //		operaione nel caso la lista non sia oltre il 100, incremento la lista attuale
-            long index = Collections.max(maxLista).getId();
+            long index = Collections.max(maxLista).getTicketNumber();
             Ticket toInsert = new Ticket(index + 1, 0, priority, listaAttuale);
             log.info("generating ticket ->" + toInsert.toString());
             o.setBiglietto(toInsert);

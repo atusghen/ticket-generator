@@ -1,15 +1,13 @@
 package com.unibg.ticketgenerator.entities;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket>
 {
 
-	@Id
-	private long id;
+	private long ticketNumber;
 	private long operatore;
 
 	private long creationTime;
@@ -19,8 +17,8 @@ public class Ticket implements Comparable<Ticket>
 	private TicketType type;
 	private int priorityvalue;
 	public Ticket() {}
-	public Ticket(long id, int op, int nLista) {
-		this.id=id;
+	public Ticket(long ticketNumber, int op, int nLista) {
+		this.ticketNumber = ticketNumber;
 		this.operatore = op;
 		this.nLista=nLista;
 		this.type=TicketType.C2;
@@ -28,8 +26,8 @@ public class Ticket implements Comparable<Ticket>
 		this.creationTime=System.currentTimeMillis();
 		this.temp=System.currentTimeMillis();
 	}
-	public Ticket(long id, int op, @NotNull TicketType pri, int nLista) {
-		this.id=id;
+	public Ticket(long ticketNumber, int op, @NotNull TicketType pri, int nLista) {
+		this.ticketNumber = ticketNumber;
 		this.operatore = op;
 		this.nLista=nLista;
 		this.type=pri;
@@ -39,14 +37,14 @@ public class Ticket implements Comparable<Ticket>
 	}
 
 
-	public Ticket(long id) {
-		this.id=id;
+	public Ticket(long ticketNumber) {
+		this.ticketNumber = ticketNumber;
 	}
 	public long getOperatore() {
 		return this.operatore;
 	}
-	public long getId() {
-		return id;
+	public long getTicketNumber() {
+		return ticketNumber;
 	}
 	public TicketType getPriority()
 	{
@@ -78,7 +76,7 @@ public class Ticket implements Comparable<Ticket>
 	}
 	public int getNlista() {return nLista;}
 
-	public String toString() {return type.toString()+ ((getId() >9) ? "0" : "00")+ getId();}
+	public String toString() {return type.toString()+ ((getTicketNumber() >9) ? "0" : "00")+ getTicketNumber();}
 	public void assegnaOp(int op){
 		this.operatore=op;
 	}
@@ -86,9 +84,9 @@ public class Ticket implements Comparable<Ticket>
 
 	@Override
 	public int compareTo(Ticket o) {
-		if(o.getId()<this.getId() && o.getNlista()==this.getNlista())
+		if(o.getTicketNumber()<this.getTicketNumber() && o.getNlista()==this.getNlista())
 			return 1;
-		else if(o.getId()>this.getId() && o.getNlista()==this.getNlista())
+		else if(o.getTicketNumber()>this.getTicketNumber() && o.getNlista()==this.getNlista())
 			return -1;
 		else //if(o.getNlista()==this.getNlista())
 			return 0;

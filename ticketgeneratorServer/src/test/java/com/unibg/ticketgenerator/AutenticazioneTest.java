@@ -1,17 +1,11 @@
 package com.unibg.ticketgenerator;
 
 import com.unibg.ticketgenerator.dao.TicketsRepository;
-import com.unibg.ticketgenerator.entities.Ticket;
 import com.unibg.ticketgenerator.entities.TicketType;
-import com.unibg.ticketgenerator.entities.Utente;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
-import com.unibg.ticketgenerator.srv.dto.ServeNextCb;
 import com.unibg.ticketgenerator.srv.ope.IncrementaOPE;
-import com.unibg.ticketgenerator.srv.ope.ServeNextOPE;
 import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -71,7 +65,7 @@ public class AutenticazioneTest {
         in.setPriority("A");
         in.setToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXN1YWxpenphdG9yZSIsImlhdCI6MTY3MjQwOTEyMSwiZXhwIjoxNjcyNDA5MTIxfQ.Qq4ZUYDUURnljEoaZeXycNb7wZX9UO2SxmjX7JvU9t3zL7If3bMZ00bVErIX1crGuLqx6wK0srrwJu44xI4bog");
         out = incrementaOPE.execute(in);
-        assert out.getBiglietto().getId() == 1;
+        assert out.getBiglietto().getTicketNumber() == 1;
         assert out.getBiglietto().getPriority() == TicketType.valueOf("in.getPriority()");
         assert out.getBiglietto().getNlista() == 0;
         assert out.getBiglietto().getOperatore() == 0;
@@ -82,7 +76,7 @@ public class AutenticazioneTest {
         in.setPriority("B");
         in.setToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aXN1YWxpenphdG9yZSIsImlhdCI6MTY3MjQwOTEyMSwiZXhwIjoxNjcyNDA5MTIxfQ.Qq4ZUYDUURnljEoaZeXycNb7wZX9UO2SxmjX7JvU9t3zL7If3bMZ00bVErIX1crGuLqx6wK0srrwJu44xI4bog");
         out = incrementaOPE.execute(in);
-        assert out.getBiglietto().getId() == 2;
+        assert out.getBiglietto().getTicketNumber() == 2;
         assert out.getBiglietto().getPriority() == TicketType.valueOf("in.getPriority()");
         assert out.getBiglietto().getNlista() == 1;
         assert out.getBiglietto().getOperatore() == 0;
