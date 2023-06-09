@@ -21,13 +21,36 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ciao Prova!" />
+
+    <TextView
+        android:id="@+id/msgTextMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non hai ancora effettuato alcuna prenotazione.\n Per prenotarti clicca il pulsante."
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/arrowImageMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintBottom_toTopOf="@+id/bookButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msgTextMain" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ticketLayout"
@@ -67,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:text="Biglietto numero: "
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="24sp"
                     android:layout_marginTop="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +102,7 @@
                     android:layout_height="wrap_content"
                     tools:text="A0001"
                     android:textColor="@color/black"
-                    android:textSize="32sp"
+                    android:textSize="72sp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,31 +137,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="8dp"
                     android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
                     app:drawableLeftCompat="@drawable/ic_user"
                     app:drawableTint="@color/black"
-                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@+id/ticketInfo2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="A0001"/>
+                    tools:text="A0001" />
 
                 <TextView
                     android:id="@+id/ticketInfo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
                     android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
                     app:drawableLeftCompat="@drawable/ic_clock"
                     app:drawableTint="@color/black"
-                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@+id/ticketInfo3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ticketInfo1"
+                    tools:text="A0001" />
+
+                <TextView
+                    android:id="@+id/ticketInfo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginBottom="32dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:drawableLeftCompat="@drawable/ic_user"
+                    app:drawableTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="invisible"
                     tools:text="A0001" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,11 +192,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bookButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@drawable/shapebuttonwhite"
+        app:backgroundTint="@color/white"
+        app:iconGravity="textStart"
         android:text="Prenota ora"
         android:textColor="@color/our_purple"
         android:textSize="24sp"
@@ -162,7 +207,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

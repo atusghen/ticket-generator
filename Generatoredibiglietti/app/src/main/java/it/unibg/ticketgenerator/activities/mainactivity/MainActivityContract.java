@@ -1,9 +1,7 @@
 package it.unibg.ticketgenerator.activities.mainactivity;
 
-import it.unibg.ticketgenerator.data.IncrementaCb;
 import it.unibg.ticketgenerator.entities.Ticket;
 import it.unibg.ticketgenerator.utils.BasePresenter;
-import it.unibg.ticketgenerator.utils.BaseView;
 
 public interface MainActivityContract {
     interface View //extends BaseView
@@ -21,5 +19,7 @@ public interface MainActivityContract {
         void logout();
 
         void createTicket(String token);
+
+        void getTicket(String ticket, long number);
     }
 }

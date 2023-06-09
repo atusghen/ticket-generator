@@ -1,6 +1,7 @@
 package it.unibg.ticketgenerator.activities.mainactivity;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -80,6 +81,26 @@ public class MainActivityPresenter implements MainActivityContract.Presenter{
                 .subscribe(
                         onSuccess -> {
                             mView.showTicket(onSuccess.getBiglietto());
+                            Log.w("Ticket", onSuccess.getBiglietto().getPriority().getLabel() + onSuccess.getBiglietto().getTicketNumber());
+                            sharedPreferenceRepository.saveLong("ticket", onSuccess.getBiglietto().getTicketNumber());
+                        },
+                        onError -> {
+                            Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();
+                            onError.printStackTrace();
+                        }
+                );
+    }
+
+    @Override
+    public void getTicket(String token, long ticket) {
+        AllStackCb cb = new AllStackCb();
+        cb.getI().setToken(token);
+        retroFitRepository.getAllStack(cb)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        onSuccess -> {
+                            mView.showTicket(onSuccess.getOutput().stream().filter(t -> t.getTicketNumber() == ticket).findFirst().orElse(null));
                         },
                         onError -> {
                             Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();

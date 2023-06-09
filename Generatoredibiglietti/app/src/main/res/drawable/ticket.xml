@@ -11,18 +11,18 @@
                 android:bottomRightRadius="8dp" />
 
             <size
-                android:height="300dp"
-                android:width="200dp" />
+                android:height="400dp"
+                android:width="250dp" />
             <solid android:color="#FFFFFF" />
         </shape>
     </item>
 
     <!-- Left Half-Circle -->
     <item
-        android:left="90dp"
-        android:right="90dp"
+        android:left="115dp"
+        android:right="115dp"
         android:top="-10dp"
-        android:bottom="290dp">
+        android:bottom="390dp">
         <shape android:shape="oval">
             <solid android:color="@color/our_blue" />
 
@@ -31,9 +31,9 @@
 
     <!-- Right Half-Circle -->
     <item
-        android:left="90dp"
-        android:right="90dp"
-        android:top="290dp"
+        android:left="115dp"
+        android:right="115dp"
+        android:top="390dp"
         android:bottom="-10dp">
         <shape android:shape="oval">
             <solid android:color="@color/our_purple" />
