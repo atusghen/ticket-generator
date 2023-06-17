@@ -2,10 +2,13 @@ package it.unibg.ticketgenerator.activities.mainactivity;
 
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,17 +21,22 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
 
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Inject
     SharedPreferenceRepository sharedPreferenceRepository;
 
-    private Button bookButton;
+    private MaterialButton bookButton;
     private AppCompatImageButton logoutButton;
 
     private TextView welcomeText;
@@ -54,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private TextView ticketBeforeText;
     private TextView ticketInfo1Text;
     private TextView ticketInfo2Text;
+
+    private TextView msgTextMain;
+    private ImageView arrowImageMain;
 
     private LinearLayout ticketShape;
 
@@ -85,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
         ticketShape = findViewById(R.id.ticket);
 
+        msgTextMain = findViewById(R.id.msgTextMain);
+        arrowImageMain = findViewById(R.id.arrowImageMain);
+
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,12 +112,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
             public void onClick(View view) {
                 sharedPreferenceRepository.saveString("token", "");
                 sharedPreferenceRepository.saveString("username", "");
+                sharedPreferenceRepository.saveLong("ticket", 0);
                 startAuthenticationActivity();
             }
         });
 
-    }
+        checkTicketExits();
 
+    }
 
     @Override
     protected void onStart() {
@@ -126,18 +142,41 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void showTicket(Ticket ticket) {
-        ticketIdText.setText(String.format(Locale.ITALY, "%s%03d", ticket.getPriority(), ticket.getTicketNumber()));
+        if(ticket != null){
+            msgTextMain.setVisibility(View.GONE);
+            arrowImageMain.setVisibility(View.GONE);
 
-        ticketInfo1Text.setText(sharedPreferenceRepository.getString("username"));
+            ticketIdText.setText(String.format(Locale.ITALY, "%s%03d", ticket.getPriority(), ticket.getTicketNumber()));
 
-        ticketInfo2Text.setText(getDateFromTimestamp(ticket.getCreationTime()));
+            ticketInfo1Text.setText(sharedPreferenceRepository.getString("username"));
 
-        ticketLayout.animate().setInterpolator(new OvershootInterpolator()).scaleX(1).scaleY(1).setDuration(250).start();
+            ticketInfo2Text.setText(getDateFromTimestamp(ticket.getCreationTime()));
+
+            ticketLayout.animate().setInterpolator(new OvershootInterpolator()).scaleX(1).scaleY(1).setDuration(250).start();
+
+            bookButton.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shapebuttontransparent));
+            bookButton.setTextColor(getColor(R.color.white));
+            bookButton.setText("BIGLIETTO\nPRENOTATO");
+            bookButton.setIcon(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.ic_check));
+
+        } else {
+            msgTextMain.setVisibility(View.VISIBLE);
+            arrowImageMain.setVisibility(View.VISIBLE);
+
+            sharedPreferenceRepository.saveLong("ticket", 0);
+        }
     }
 
     private String getDateFromTimestamp(long creationTime) {
         Date date = new Date(creationTime);
         Format format = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.ITALY);
         return format.format(date);
+    }
+
+
+    private void checkTicketExits() {
+        if(sharedPreferenceRepository.getLong("ticket") != 0) {
+            mPresenter.getTicket(sharedPreferenceRepository.getString("token"), sharedPreferenceRepository.getLong("ticket"));
+        }
     }
 }
