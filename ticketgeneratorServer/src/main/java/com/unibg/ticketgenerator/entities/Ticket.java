@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import java.time.LocalTime;
 @Document(collection = "ticket")
 public class Ticket implements Comparable<Ticket>
 {
@@ -16,6 +16,7 @@ public class Ticket implements Comparable<Ticket>
 
 	private long creationTime;
 	private long temp;
+	private long StartService;
 	int nLista;
 
 	private TicketType type;
@@ -27,8 +28,8 @@ public class Ticket implements Comparable<Ticket>
 		this.nLista=nLista;
 		this.type=TicketType.C2;
 		this.priorityvalue=setPriorityValue(type);
-		this.creationTime=System.currentTimeMillis();
-		this.temp=System.currentTimeMillis();
+		this.creationTime=getoSecondOfDay();
+		this.temp=getoSecondOfDay();
 	}
 	public Ticket(long ticketNumber, int op, @NotNull TicketType pri, int nLista) {
 		this.ticketNumber = ticketNumber;
@@ -36,10 +37,20 @@ public class Ticket implements Comparable<Ticket>
 		this.nLista=nLista;
 		this.type=pri;
 		this.priorityvalue=setPriorityValue(type);
-		this.creationTime=System.currentTimeMillis();
-		this.temp=System.currentTimeMillis();
+		this.creationTime=getoSecondOfDay();
+		this.temp=getoSecondOfDay();
 	}
 
+	public long getoSecondOfDay(){
+		return LocalTime.now().toSecondOfDay()+2*3600;
+	}
+
+	public void setStartService(){
+		StartService=getoSecondOfDay();
+	}
+	public long getStartService(){
+		return this.StartService;
+	}
 
 	public Ticket(long ticketNumber) {
 		this.ticketNumber = ticketNumber;
@@ -95,12 +106,19 @@ public class Ticket implements Comparable<Ticket>
 		else //if(o.getNlista()==this.getNlista())
 			return 0;
 	}
+	public long getQueueTime(){
+		return Math.abs(this.StartService-this.creationTime);
+
+	}
+	public TicketType getTypeOfTicket(){
+		return type;
+	}
 
 	public void isExpired() {
-		if (System.currentTimeMillis() - temp > 10000){
+		if ((LocalTime.now().toSecondOfDay()-temp) > 10){
 			if(this.priorityvalue<10) {
 				this.priorityvalue = priorityvalue + 1;
-				temp = System.currentTimeMillis();
+				temp = LocalTime.now().toSecondOfDay();
 			}
 		}
 	}

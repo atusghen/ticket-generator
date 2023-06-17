@@ -4,11 +4,14 @@ import com.unibg.ticketgenerator.entities.Ticket;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
-
+import java.util.Optional;
 public interface TicketsRepository extends MongoRepository<Ticket, String> {
     @Override
     void delete(Ticket entity);
 
     @Override
     List<Ticket> findAll();
+
+    //Per trovare il ticket
+    Optional<Ticket> findByTicketNumber(long ticketNumber);
 }

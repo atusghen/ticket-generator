@@ -2,6 +2,7 @@ package com.unibg.ticketgenerator.srv.library;
 
 import com.unibg.ticketgenerator.srv.dto.BasicCB;
 import com.unibg.ticketgenerator.srv.ope.exceptions.*;
+import com.unibg.ticketgenerator.srv.ope.exceptions.TicketAlreadyRegistered;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -68,6 +69,10 @@ public abstract class BasicSRV {
             log.error("Cf already registered: " + e.getMessage());
             cb.setOpeResult("Cf already registered: " + e.getMessage());
             return ResponseEntity.status(401).body(cb);
+        }catch (TicketAlreadyRegistered e){
+            log.error("Ticket already assigned: " + e.getMessage());
+            cb.setOpeResult("Ticket already assigned: " + e.getMessage());
+            return ResponseEntity.status(402).body(cb);
         }
     }
 

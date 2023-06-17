@@ -1,6 +1,8 @@
 package com.unibg.ticketgenerator.srv.ope;
 
+import com.unibg.ticketgenerator.dao.QueueRepository;
 import com.unibg.ticketgenerator.dao.TicketsRepository;
+import com.unibg.ticketgenerator.entities.Queue;
 import com.unibg.ticketgenerator.entities.Ticket;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import java.util.List;
 public class UpdateTickets {
     @Autowired
     private TicketsRepository ticketsRepository;
+    @Autowired
+    private QueueRepository queueRepository;
 
     @SneakyThrows
     @Scheduled(fixedDelay = 20000) // esegui ogni 20 secondi
@@ -37,6 +41,19 @@ public class UpdateTickets {
         }
 
             ticketsRepository.deleteAll(toDelete);
+
+    }
+
+    @SneakyThrows
+    @Scheduled(cron="0 0 13 * * ?")
+    public void resetCounter(){
+        List<Queue> pila = queueRepository.findAll();
+        for (Queue temp : pila) {
+            temp.resetDailyCounter();
+
+        }
+
+        queueRepository.saveAll(pila);
 
     }
 

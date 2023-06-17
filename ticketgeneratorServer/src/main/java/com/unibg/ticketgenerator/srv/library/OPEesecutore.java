@@ -11,7 +11,7 @@ public class OPEesecutore {
     @Autowired
     protected ApplicationContext appContext;
 
-    public BasicCB execOPE(String opeId, BasicCB cb) throws UsernameNotFoundException, WrongPasswordException, UsernameAlreadyExistException, CfAlreadyRegistered {
+    public BasicCB execOPE(String opeId, BasicCB cb) throws UsernameNotFoundException, WrongPasswordException, UsernameAlreadyExistException, TicketAlreadyRegistered,CfAlreadyRegistered {
 
         BasicOPE ope=null;
 
