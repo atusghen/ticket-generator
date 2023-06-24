@@ -34,7 +34,7 @@ public class IncrementaCb extends BasicCB<IncrementaCb.I,IncrementaCb.O> impleme
     @Data
     public static class O implements Serializable {
         private Ticket biglietto;
-        private String  TotQueueTime;
+        private String  UserQueue;
 
     }
 

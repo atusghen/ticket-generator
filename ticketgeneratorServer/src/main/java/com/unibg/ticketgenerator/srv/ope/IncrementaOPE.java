@@ -8,16 +8,20 @@ import com.unibg.ticketgenerator.entities.Queue;
 import com.unibg.ticketgenerator.entities.TicketType;
 import com.unibg.ticketgenerator.entities.Utente;
 import com.unibg.ticketgenerator.srv.dto.IncrementaCb;
+import com.unibg.ticketgenerator.srv.dto.QueueTimeCb;
 import com.unibg.ticketgenerator.srv.library.Autenticatore;
 import com.unibg.ticketgenerator.srv.library.BasicOPE;
 import com.unibg.ticketgenerator.srv.library.JwtUtils;
 import com.unibg.ticketgenerator.srv.ope.exceptions.InvalidPriorityException;
 import com.unibg.ticketgenerator.srv.ope.exceptions.TicketAlreadyRegistered;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +50,7 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
             List<Queue> Queue = queueRepository.findAll();
             Queue queue = Queue.iterator().next();
             IncrementaCb.O o = new IncrementaCb.O();
-            o.setTotQueueTime(queue.getLTotMeanTime().toString());
+            //o.setTotQueueTime(queue.getLTotMeanTime().toString());
             TicketType priority;
             try {
                 priority = TicketType.valueOf(i.getPriority());
@@ -67,6 +71,8 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
                     log.info("Ticket1 " + toInsert + ", associato all'utente: " + utente.get() + "   " + utente.get().isAssignedTicket());
                     log.info("generating ticket ->" + toInsert.toString());
                     o.setBiglietto(toInsert);
+                    long start=0;
+                    o.setUserQueue(convertSecondsToLocalTime(start).toString());
                     ticketsRepository.insert(toInsert);
                     utenteRepository.save(utente.get());
                     queueRepository.save(queue);
@@ -108,6 +114,7 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
                 log.info("Ticket3 " + toInsert + ", associato all'utente: " + utente.get().getUsername() + "   " + utente.get().isAssignedTicket());
                 log.info("generating ticket ->" + toInsert.toString());
                 o.setBiglietto(toInsert);
+                o.setUserQueue(UserQueue(utente,queue,pila,toInsert));
                 ticketsRepository.insert(o.getBiglietto());
                 utenteRepository.save(utente.get());
                 queueRepository.save(queue);
@@ -128,5 +135,39 @@ public class IncrementaOPE extends BasicOPE<IncrementaCb.I, IncrementaCb.O> {
             return Collections.max(nListe);
     }
 
+    public String UserQueue(Optional<Utente> utente, Queue queue, List<Ticket> pila, Ticket userTicket){
+        Iterator<Ticket> it=pila.iterator();
+        int nqueueA=0;
+        int nqueueB=0;
+        int nqueueX=0;
+        int nqueueC1=0;
+        int nqueueC2=0;
+        while(it.hasNext()){
+            Ticket temp=it.next();
+            if(temp.comparePriority(userTicket) && !temp.equals(userTicket)){
+                if(temp.getTypeOfTicket()==TicketType.A){
+                    nqueueA=nqueueA+1;
+                }else if(temp.getTypeOfTicket()==TicketType.X){
+                    nqueueX=nqueueX+1;
+                }else if(temp.getTypeOfTicket()==TicketType.B){
+                    nqueueB=nqueueB+1;
+                }else if(temp.getTypeOfTicket()==TicketType.C1){
+                    nqueueC2=nqueueC2+1;
+                }else if(temp.getTypeOfTicket()==TicketType.C2){
+                    nqueueC2=nqueueC2+1;
+                }
+            }
+        }
+        long TotSec=nqueueA*queue.getMeanTimeA()+nqueueB*queue.getMeanTimeB()+nqueueX*queue.getMeanTimeX()
+                +nqueueC1*queue.getMeanTimeC1()+nqueueC2*queue.getMeanTimeC2();
+        LocalTime QueueTime=convertSecondsToLocalTime(TotSec);
+        return QueueTime.toString();
+    }
+    public LocalTime convertSecondsToLocalTime(long seconds) {
+        int hour = (int) Math.abs(seconds / 3600);
+        int minute = (int) Math.abs((seconds % 3600) / 60);
+        int second = (int) Math.abs(seconds % 60);
 
+        return LocalTime.of(hour, minute, second);
+    }
 }
