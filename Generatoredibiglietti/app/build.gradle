@@ -52,8 +52,6 @@ dependencies {
     implementation 'org.mongodb:bson:4.4.2'
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    //room import
-    implementation 'androidx.room:room-common:2.4.3'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.appcompat:appcompat:1.6.1'
