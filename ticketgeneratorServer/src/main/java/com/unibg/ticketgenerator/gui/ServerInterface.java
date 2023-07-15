@@ -56,6 +56,7 @@ public class ServerInterface extends JPanel {
         startServerButton.setBorderPainted(false);
         stopServerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         stopServerButton.setBorder(compound);
+        stopServerButton.setEnabled(false);
         stopServerButton.setMargin(new Insets(0, 10, 0, 10));
         //stopServerButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 5), new EmptyBorder(30, 30, 30, 30)));
 
@@ -100,6 +101,8 @@ public class ServerInterface extends JPanel {
 
                 serverStatus.setText("Server status: ONLINE");
                 serverStatus.setForeground(Color.BLUE);
+                startServerButton.setEnabled(false);
+                stopServerButton.setEnabled(true);
             }
         });
 
@@ -112,6 +115,8 @@ public class ServerInterface extends JPanel {
 
                 serverStatus.setText("Server status: OFFLINE");
                 serverStatus.setForeground(Color.RED);
+                startServerButton.setEnabled(true);
+                stopServerButton.setEnabled(false);
             }
         });
 
