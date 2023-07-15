@@ -1,5 +1,6 @@
 package com.unibg.ticketgenerator;
 
+import com.unibg.ticketgenerator.gui.ServerInterface;
 import com.unibg.ticketgenerator.srv.library.OPEesecutore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableMongoRepositories(basePackages = "com.unibg.ticketgenerator")
 @ComponentScan(basePackages = {"com.unibg.ticketgenerator"})
 public class TicketGeneratorApplication {
+
+	static ConfigurableApplicationContext ctx;
 
 	@Bean(name = "opeExecutor")
 	public OPEesecutore opeExecutor() {
@@ -43,8 +46,21 @@ public class TicketGeneratorApplication {
 //
 //	}
 
-public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = SpringApplication.run(TicketGeneratorApplication.class, args);
-		ctx.close();
+	public static void main(String[] args) {
+
+		new ServerInterface();
+
 	}
+
+	public static void startServer(){
+		ctx = SpringApplication.run(TicketGeneratorApplication.class);
+
+	}
+
+	public static void stopServer() {
+		if(ctx != null)
+			ctx.close();
+	}
+
+
 }
