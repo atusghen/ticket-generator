@@ -28,6 +28,7 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
     @Inject
     AutheticationActivityContract.Presenter mPresenter;
 
+    private TextInputLayout api;
     private TextInputLayout username;
     private TextInputLayout password;
 
@@ -37,9 +38,11 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
     private TextInputLayout newSurname;
     private TextInputLayout newCf;
 
+    private Button apiButton;
     private Button loginButton;
     private Button registerButton;
 
+    private ConstraintLayout apiLayout;
     private ConstraintLayout loginLayout;
     private ConstraintLayout registerLayout;
 
@@ -60,6 +63,7 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
+        api = findViewById(R.id.apiEndpointTextInputLayout);
         username = findViewById(R.id.usernameTextInputLayout);
         password = findViewById(R.id.passwordTextInputLayout);
 
@@ -72,12 +76,32 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
 
+        apiLayout = findViewById(R.id.constraintLayoutApi);
+        apiButton = findViewById(R.id.apiButton);
+
         loginLayout = findViewById(R.id.constraintLayoutLogin);
         registerLayout = findViewById(R.id.constraintLayoutRegister);
 
         loadingCircle = findViewById(R.id.loadingCircle);
 
         registerLayout.setTranslationX(displayMetrics.widthPixels);
+
+        apiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.saveApi(api.getEditText().getText().toString());
+                if(mPresenter.isSettedApi())
+                {
+                    loginLayout.setVisibility(View.VISIBLE);
+                    registerLayout.setVisibility(View.VISIBLE);
+                    loginButton.setVisibility(View.VISIBLE);
+                    registerButton.setVisibility(View.VISIBLE);
+
+                    apiLayout.setVisibility(View.GONE);
+                    apiButton.setVisibility(View.GONE);
+                }
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +158,19 @@ public class AutheticationActivity extends AppCompatActivity implements Authetic
 
             }
         });
+
+
+        if(!mPresenter.isSettedApi())
+        {
+            loginLayout.setVisibility(View.GONE);
+            registerLayout.setVisibility(View.GONE);
+            loginButton.setVisibility(View.GONE);
+            registerButton.setVisibility(View.GONE);
+        } else {
+            mPresenter.setApi();
+            apiLayout.setVisibility(View.GONE);
+            apiButton.setVisibility(View.GONE);
+        }
 
     }
 

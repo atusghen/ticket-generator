@@ -15,6 +15,48 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutApi"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/loginButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/apiEndpointTextInputLayout"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="40dp"
+                    app:boxCornerRadiusBottomStart="40dp"
+                    app:boxCornerRadiusTopEnd="40dp"
+                    app:boxCornerRadiusTopStart="40dp"
+                    app:boxStrokeColor="@color/white"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:gravity="start"
+                        android:hint="API"
+                        android:inputType="text"
+                        android:paddingHorizontal="32dp"
+                        android:paddingVertical="15dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -22,6 +64,38 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/apiEndpointTextInputLayout"-->
+<!--                    android:layout_width="250dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColorHint="@color/white"-->
+<!--                    app:boxBackgroundMode="outline"-->
+<!--                    app:boxCornerRadiusBottomEnd="40dp"-->
+<!--                    app:boxCornerRadiusBottomStart="40dp"-->
+<!--                    app:boxCornerRadiusTopEnd="40dp"-->
+<!--                    app:boxCornerRadiusTopStart="40dp"-->
+<!--                    app:boxStrokeColor="@color/white"-->
+<!--                    app:hintTextColor="@color/white"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="5dp"-->
+<!--                        android:backgroundTint="@android:color/transparent"-->
+<!--                        android:gravity="start"-->
+<!--                        android:hint="API"-->
+<!--                        android:inputType="text"-->
+<!--                        android:paddingHorizontal="32dp"-->
+<!--                        android:paddingVertical="15dp"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/usernameTextInputLayout"
@@ -57,7 +131,6 @@
                     android:id="@+id/passwordTextInputLayout"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
                     android:textColorHint="@color/white"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="40dp"
@@ -275,6 +348,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/apiButton"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shapebuttonwhite"
+                android:text="API"
+                android:textColor="#3F51B5"
+                android:textSize="24sp"
+                app:boxBackgroundMode="outline"
+                android:layout_marginBottom="64dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginButton"

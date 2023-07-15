@@ -16,6 +16,12 @@ public interface AutheticationActivityContract {
 
     interface Presenter extends BasePresenter {
 
+        boolean isSettedApi();
+
+        void setApi();
+
+        void saveApi(String api);
+
         void login(String username, String password);
 
         void register(String username, String password, String name, String surname, String cf);

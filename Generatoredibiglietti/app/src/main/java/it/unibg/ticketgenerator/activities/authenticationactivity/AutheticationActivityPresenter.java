@@ -3,15 +3,11 @@ package it.unibg.ticketgenerator.activities.authenticationactivity;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import it.unibg.ticketgenerator.activities.mainactivity.MainActivityContract;
-import it.unibg.ticketgenerator.data.AllStackCb;
 import it.unibg.ticketgenerator.data.LoginCb;
 import it.unibg.ticketgenerator.data.SignUpCb;
 import it.unibg.ticketgenerator.repositories.SharedPreferenceRepository;
@@ -39,6 +35,36 @@ public class AutheticationActivityPresenter implements AutheticationActivityCont
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public boolean isSettedApi()
+    {
+        return sharedPreferenceRepository.getString("api") != null && sharedPreferenceRepository.getString("api") != "";
+    }
+
+    @Override
+    public void setApi()
+    {
+        try {
+            retroFitRepository.setupClient2(sharedPreferenceRepository.getString("api"));
+
+        }catch (Exception e)
+        {
+            mView.showSnackBar(e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveApi(String api)
+    {
+        try {
+            retroFitRepository.setupClient2(api);
+            sharedPreferenceRepository.saveString("api",api);
+        }catch (Exception e)
+        {
+            mView.showSnackBar(e.getMessage());
+        }
     }
 
     @Override
@@ -77,7 +103,7 @@ public class AutheticationActivityPresenter implements AutheticationActivityCont
                 .subscribe(
                         onSuccess -> {
                             mView.stopLoading();
-                            login(username, password);
+                            //login(username, password);
                         },
                         onError -> {
                             Toast.makeText(context, onError.getMessage(), Toast.LENGTH_SHORT).show();

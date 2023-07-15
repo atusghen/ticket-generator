@@ -37,8 +37,6 @@ public class RetroFitRepository {
 
     @Inject
     public RetroFitRepository() {
-        //preso da libreria SpringHttpClient
-        setupClient2("http://192.168.0.109:8080");
     }
 
     public void setupClient2(String apiUrl) {
@@ -65,7 +63,7 @@ public class RetroFitRepository {
         return execOPE(LoginCb.NAME, cb, LoginCb.O.class);
     }
 
-    public Single<SignUpCb.O> register(@NotNull SignUpCb cb) {
+    public Single<SignUpCb.O> register( @NotNull SignUpCb cb) {
         return execOPE(SignUpCb.NAME, cb, SignUpCb.O.class);
     }
 
