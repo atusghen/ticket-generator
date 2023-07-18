@@ -29,6 +29,7 @@ Nota: attualmente le webApp sono dei "dummy" in Java/Spring oppure Html/Javascri
 
 
 Changelog Versione 1.0
-TODO
+- App Android con profilazione
+- ticketgeneratorServer con interfaccia di start/stop
 
 
